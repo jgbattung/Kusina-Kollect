@@ -1,8 +1,14 @@
+"use client"
+
 import Image from "next/image"
 import Link from "next/link"
 import SearchBar from "./SearchBar"
+import { navbarRoutes } from "@/app/constants"
+import { usePathname } from "next/navigation"
 
 function Navbar() {
+  const currentPathname = usePathname();
+
   return (
     <header className="top-0 left-0 right-0 flex flex-col border-b border-gray-200 py-5 shadow-sm max-md:py-2">
       <div className="flex flex-1 items-center justify-evenly">
@@ -25,14 +31,26 @@ function Navbar() {
           <p className="max-md:hidden">My Account</p>
         </div>
       </div>
-      <div className="max-lg:hidden pt-2">
-        <ul className="flex flex-1 items-center justify-evenly font-semibold">
-          <li>Meals</li>
-          <li>Cuisines</li>
-          <li>Ingredients</li>
-          <li>About Us</li>
-        </ul>
-      </div>
+      <nav className="max-lg:hidden pt-2 flex flex-1 items-center justify-evenly">
+        <div>
+          <ul className="flex flex-1 items-center justify-evenly nav-links gap-20">
+            {navbarRoutes.map((route) => {
+              const isActive = 
+              (currentPathname.includes(route.path) && route.path.length > 1) ||
+              currentPathname === route.path
+
+              return (
+                <li key={route.name}>
+                  <Link href={route.path} className={`underline-custom ${isActive ? 'underline-active': ''}`}>{route.name.toUpperCase()}</Link>
+                </li>
+              )
+            })}
+          </ul>
+        </div>
+        <div>
+          <Link href='/'><span className="nav-links text-primary-800 underline-custom">SUBMIT A RECIPE</span></Link>
+        </div>
+      </nav>
     </header>
   )
 }

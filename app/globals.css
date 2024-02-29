@@ -74,3 +74,35 @@
     @apply bg-background text-foreground;
   }
 }
+
+.underline-custom:hover {
+  text-decoration: underline;
+  text-decoration-color: #ffa726;
+  text-underline-offset: 4px;
+}
+
+.underline-active {
+  text-decoration: underline;
+  text-decoration-color: #ffa726;
+  text-underline-offset: 4px;
+}
+
+.page-container {
+  @apply flex flex-col items-center justify-center pt-12
+}
+
+.heading-bold {
+  @apply font-extrabold text-4xl text-black
+}
+
+.body-normal {
+  @apply font-normal text-base text-black
+}
+
+.body-light {
+  @apply font-light text-base text-black
+}
+
+.nav-links {
+  @apply font-bold text-sm font-extrabold !important;
+}

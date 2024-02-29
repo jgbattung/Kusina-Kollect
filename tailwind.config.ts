@@ -20,10 +20,12 @@ const config = {
     extend: {
       colors: {
         "primary-500": '#ffa726',
+        "primary-800": '#BD7B1B',
         "secondary-500": '#ffb74d',
         "accent-500": '#ffcc80',
         "complementary-500": '#003366',
-        'light-200': '#f7f7f7',
+        "complementary-800": '#012140',
+        "light-200": '#f7f7f7',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
