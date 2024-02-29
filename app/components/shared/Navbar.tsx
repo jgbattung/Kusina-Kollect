@@ -31,7 +31,7 @@ function Navbar() {
           <p className="max-md:hidden">My Account</p>
         </div>
       </div>
-      <div className="max-lg:hidden pt-2 flex flex-1 items-center justify-evenly">
+      <nav className="max-lg:hidden pt-2 flex flex-1 items-center justify-evenly">
         <div>
           <ul className="flex flex-1 items-center justify-evenly nav-links gap-20">
             {navbarRoutes.map((route) => {
@@ -41,7 +41,7 @@ function Navbar() {
 
               return (
                 <li key={route.name}>
-                  <Link href={route.path} className={`underline-custom ${isActive && 'underline-active'}`}>{route.name.toUpperCase()}</Link>
+                  <Link href={route.path} className={`underline-custom ${isActive ? 'underline-active': ''}`}>{route.name.toUpperCase()}</Link>
                 </li>
               )
             })}
@@ -50,7 +50,7 @@ function Navbar() {
         <div>
           <Link href='/'><span className="nav-links text-primary-800 underline-custom">SUBMIT A RECIPE</span></Link>
         </div>
-      </div>
+      </nav>
     </header>
   )
 }

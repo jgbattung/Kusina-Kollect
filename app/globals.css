@@ -104,5 +104,5 @@
 }
 
 .nav-links {
-  @apply font-bold text-sm font-extrabold
+  @apply font-bold text-sm font-extrabold !important;
 }
