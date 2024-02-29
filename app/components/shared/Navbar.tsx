@@ -31,21 +31,25 @@ function Navbar() {
           <p className="max-md:hidden">My Account</p>
         </div>
       </div>
-      <div className="max-lg:hidden pt-2">
-        <ul className="flex flex-1 items-center justify-evenly nav-links">
-          {navbarRoutes.map((route) => {
-            const isActive = 
-            (currentPathname.includes(route.path) && route.path.length > 1) ||
-            currentPathname === route.path
+      <div className="max-lg:hidden pt-2 flex flex-1 items-center justify-evenly">
+        <div>
+          <ul className="flex flex-1 items-center justify-evenly nav-links gap-20">
+            {navbarRoutes.map((route) => {
+              const isActive = 
+              (currentPathname.includes(route.path) && route.path.length > 1) ||
+              currentPathname === route.path
 
-            return (
-              <li key={route.name}>
-                <Link href={route.path} className={`underline-custom ${isActive && 'underline-active'}`}>{route.name.toUpperCase()}</Link>
-              </li>
-            )
-            
-          })}
-        </ul>
+              return (
+                <li key={route.name}>
+                  <Link href={route.path} className={`underline-custom ${isActive && 'underline-active'}`}>{route.name.toUpperCase()}</Link>
+                </li>
+              )
+            })}
+          </ul>
+        </div>
+        <div>
+          <Link href='/'><span className="nav-links text-primary-800 underline-custom">SUBMIT A RECIPE</span></Link>
+        </div>
       </div>
     </header>
   )
