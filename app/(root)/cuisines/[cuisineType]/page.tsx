@@ -26,10 +26,12 @@ const Page = () => {
             title="Embark on a Culinary Adventure"
             description="It seems the cuisine you're looking for has eluded our culinary map. But don't let your appetite for discovery end here."
           />
-          <SectionLinks 
-            linksDesc="Dive into the rich tapestry of flavors and traditions with our curated selection of cuisines:"
-            links={cuisineLinks}
-          />
+          <div className="pt-12 max-md:pt-6 max-sm:pt-2">
+            <SectionLinks 
+              linksDesc="Dive into the rich tapestry of flavors and traditions with our curated selection of cuisines:"
+              links={cuisineLinks}
+            />
+          </div>
         </>
       )}
     </div>

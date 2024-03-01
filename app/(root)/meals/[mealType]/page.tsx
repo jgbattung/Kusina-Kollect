@@ -26,10 +26,12 @@ const Page = () => {
             title="Oops! The Feast has yet to begin..."
             description="We couldn't find the meal type you're searching for, but the culinary journey doesn't have to end here"
           />
-          <SectionLinks 
-            linksDesc="Explore our diverse collection of meals and discover new favorites that await to delight your taste buds:"
-            links={mealLinks}
-          />
+          <div className="pt-12 max-md:pt-6 max-sm:pt-2">
+            <SectionLinks 
+              linksDesc="Explore our diverse collection of meals and discover new favorites that await to delight your taste buds:"
+              links={mealLinks}
+            />
+          </div>
         </>
       )}
     </div>
