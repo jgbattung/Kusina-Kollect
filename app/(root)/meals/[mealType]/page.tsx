@@ -16,23 +16,21 @@ const Page = () => {
   return (
     <div>
       {currentMealType ? (
+        <SectionHeader 
+          title={currentMealType.name}
+          description={description}
+        />
+      ) : (
         <>
           <SectionHeader 
-            title={currentMealType.name}
-            description={description}
+            title="Oops! The Feast has yet to begin..."
+            description="We couldn't find the meal type you're searching for, but the culinary journey doesn't have to end here"
           />
-        </>
-      ) : (
-        <div className="page-container">
-          <div className="center">
-            <h2 className="heading-bold">Oops! The Feast has yet to begin...</h2>
-            <p className="body-light pt-2">{`We couldn't find the meal type you're searching for, but the culinary journey doesn't have to end here.`}</p>
-          </div>
           <SectionLinks 
             linksDesc="Explore our diverse collection of meals and discover new favorites that await to delight your taste buds:"
             links={mealLinks}
           />
-        </div>
+        </>
       )}
     </div>
   )
