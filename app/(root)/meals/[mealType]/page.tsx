@@ -1,7 +1,7 @@
 "use client"
 
 import SectionHeader from "@/app/components/shared/SectionHeader";
-import { MEAL_DESCRIPTIONS, MealName, mealLinks } from "@/app/constants/mealTypes";
+import { mealLinks } from "@/app/constants/mealTypes";
 import { getMealDescription } from "@/app/utils/mealUtils";
 import { usePathname } from "next/navigation";
 
