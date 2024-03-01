@@ -1,4 +1,4 @@
-export const navbarRoutes = [
+export const navbarRoutes: { name: string; path: string }[] = [
   { name: 'Meals', path: '/meals' },
   { name: 'Cuisines', path: '/cuisines' },
   { name: 'Ingredients', path: '/ingredients' },
