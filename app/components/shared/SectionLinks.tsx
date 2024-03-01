@@ -10,10 +10,10 @@ interface Props {
 
 function SectionLinks({ linksDesc, links }: Props) {
   return (
-    <section className="center pt-16">
+    <section className="center pt-16 max-md:pt-8">
       <p>{linksDesc}</p>
-      <div className="pt-6">
-        <ul className="grid grid-cols-3 gap-10">
+      <div className="pt-6 max-md:pt-0">
+        <ul className={`grid ${links.length > 6 ? 'grid-cols-5' : 'grid-cols-3' } gap-10 max-md:grid-cols-2 max-md:gap-7 max-sm:flex max-sm:flex-col max-sm:gap-4`}>
           {links.map((link) => (
             <li key={link.name} className="flex items-center justify-center">
               <Link href={link.path}>
