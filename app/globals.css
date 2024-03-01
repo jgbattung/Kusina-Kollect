@@ -104,5 +104,9 @@
 }
 
 .nav-links {
-  @apply font-bold text-sm font-extrabold !important;
+  @apply text-sm font-extrabold !important;
+}
+
+.center {
+  @apply flex items-center justify-center flex-col
 }
