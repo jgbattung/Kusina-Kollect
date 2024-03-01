@@ -11,7 +11,7 @@ interface Props {
 function SectionLinks({ linksDesc, links }: Props) {
   return (
     <section className="center pt-16 max-md:pt-8">
-      <p>{linksDesc}</p>
+      <p className="pb-4">{linksDesc}</p>
       <div className="pt-6 max-md:pt-0">
         <ul className={`grid ${links.length > 6 ? 'grid-cols-5' : 'grid-cols-3' } gap-10 max-md:grid-cols-2 max-md:gap-7 max-sm:flex max-sm:flex-col max-sm:gap-4`}>
           {links.map((link) => (
