@@ -26,6 +26,7 @@ const Page = () => {
           <SectionHeader 
             title="Oops! This Ingredient is Still a Mystery..."
             description="We couldn't find the ingredient you were looking for, but that doesn't mean your culinary adventure should end."
+            displayImage="/assets/not-found.png"
           />
           <div className="pt-12 max-md:pt-6 max-sm:pt-2">
             <SectionLinks 

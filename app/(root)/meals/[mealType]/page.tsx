@@ -26,6 +26,7 @@ const Page = () => {
           <SectionHeader 
             title="Oops! The Feast has yet to begin..."
             description="We couldn't find the meal type you're searching for, but the culinary journey doesn't have to end here"
+            displayImage="/assets/not-found.png"
           />
           <div className="pt-12 max-md:pt-6 max-sm:pt-2">
             <SectionLinks 
