@@ -1,7 +1,6 @@
 import SectionHeader from "@/app/components/shared/SectionHeader"
 import SectionLinks from "@/app/components/shared/SectionLinks"
 import { mealLinks } from "@/app/constants/mealTypes"
-import Link from "next/link"
 
 const page = () => {
   return (
@@ -9,6 +8,7 @@ const page = () => {
       <SectionHeader 
         title="Meals"
         description="Explore the Heart of Filipino Cuisine: From Sunrise Breakfasts to Sweet Dessert Nights."
+        displayImage="/assets/meals/main.png"
       />
       <SectionLinks 
         links={mealLinks}

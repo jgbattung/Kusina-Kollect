@@ -1,10 +1,10 @@
-export const mealLinks: { name: string; path: string }[] = [
-  { name: "Breakfast & Brunch", path: '/meals/breakfast-and-brunch' },
-  { name: "Lunch", path: '/meals/lunch' },
-  { name: "Dinner", path: '/meals/dinner' },
-  { name: "Vegetable", path: '/meals/vegetable' },
-  { name: "Drinks", path: '/meals/drinks' },
-  { name: "Dessert", path: '/meals/dessert' },
+export const mealLinks: { name: string; path: string, image: string, }[] = [
+  { name: "Breakfast & Brunch", path: '/meals/breakfast-and-brunch', image: '/assets/meals/breakfast.png' },
+  { name: "Lunch", path: '/meals/lunch', image: '/assets/meals/lunch.png' },
+  { name: "Dinner", path: '/meals/dinner', image: '/assets/meals/dinner.png' },
+  { name: "Vegetable", path: '/meals/vegetable', image: '/assets/meals/vegetables.png' },
+  { name: "Drinks", path: '/meals/drinks', image: '/assets/meals/drinks.png' },
+  { name: "Dessert", path: '/meals/dessert', image: '/assets/meals/dessert.png' },
 ]
 
 export enum MealName {

@@ -19,12 +19,14 @@ const Page = () => {
         <SectionHeader 
           title={currentCuisine.name}
           description={description}
+          displayImage={currentCuisine.image}
         />
       ) : (
         <>
           <SectionHeader 
             title="Oops! This Culinary Journey Hit a Detour..."
             description="It seems the cuisine you're looking for has eluded our culinary map. But don't let your appetite for discovery end here."
+            displayImage="/assets/not-found.png"
           />
           <div className="pt-12 max-md:pt-6 max-sm:pt-2">
             <SectionLinks 

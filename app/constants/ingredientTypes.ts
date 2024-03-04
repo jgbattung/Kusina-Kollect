@@ -1,10 +1,10 @@
-export const ingredientLinks: { name: string, path: string }[] = [
-  { name: "Chicken", path: "/ingredients/chicken" },
-  { name: "Pork", path: "/ingredients/pork" },
-  { name: "Beef", path: "/ingredients/beef" },
-  { name: "Seafood", path: "/ingredients/seafood" },
-  { name: "Vegetable", path: "/ingredients/vegetable" },
-  { name: "Noodles & Pasta", path: "/ingredients/noodles-and-pasta" },
+export const ingredientLinks: { name: string, path: string, image: string }[] = [
+  { name: "Chicken", path: "/ingredients/chicken", image: '/assets/ingredients/chicken.png' },
+  { name: "Pork", path: "/ingredients/pork", image: '/assets/ingredients/pork.png' },
+  { name: "Beef", path: "/ingredients/beef", image: '/assets/ingredients/beef.png' },
+  { name: "Seafood", path: "/ingredients/seafood", image: '/assets/ingredients/fish.png' },
+  { name: "Vegetable", path: "/ingredients/vegetable", image: '/assets/ingredients/vegetable.png' },
+  { name: "Noodles & Pasta", path: "/ingredients/noodles-and-pasta", image: '/assets/ingredients/noodles.png' },
 ]
 
 export enum IngredientName {
