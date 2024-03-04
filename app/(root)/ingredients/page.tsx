@@ -9,6 +9,7 @@ const page = () => {
       <SectionHeader 
         title='Ingredients'
         description='From Land to Sea: Discover the Essential Ingredients of Filipino Cooking.'
+        displayImage='/assets/ingredients/main.png'
       />
       <SectionLinks 
         links={ingredientLinks}

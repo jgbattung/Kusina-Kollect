@@ -19,6 +19,7 @@ const Page = () => {
         <SectionHeader 
           title={currentIngredient.name}
           description={description}
+          displayImage={currentIngredient.image}
         />
       ) : (
         <>
