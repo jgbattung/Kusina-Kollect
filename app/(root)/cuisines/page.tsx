@@ -8,6 +8,7 @@ const page = () => {
       <SectionHeader 
         title="Cuisines"
         description="Dive into the Regional Tastes of the Philippines: A Culinary Journey from Luzon, Visayas, and Mindanao."
+        displayImage="/assets/cuisines/main.png"
       />
       <SectionLinks 
         links={cuisineLinks}
