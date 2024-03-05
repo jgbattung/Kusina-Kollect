@@ -1,7 +1,7 @@
 "use client"
 
-import SectionHeader from "@/app/components/shared/SectionHeader";
-import SectionLinks from "@/app/components/shared/SectionLinks";
+import SectionHeader from "@/components/shared/SectionHeader";
+import SectionLinks from "@/components/shared/SectionLinks";
 import { cuisineLinks } from "@/app/constants/cuisineTypes";
 import { getCuisineDescription } from "@/app/utils/cuisineUtils";
 import { usePathname } from "next/navigation";
