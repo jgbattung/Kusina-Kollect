@@ -10,6 +10,7 @@ const userSchema = new mongoose.Schema({
   name: {
     type: String
   },
+  image: String,
   createdAt: {
     type: Date,
     default: Date.now
