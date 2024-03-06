@@ -9,7 +9,7 @@ interface UpdateUserParams {
   username: string;
   name: string;
   image: string;
-  path: string;
+  path?: string | undefined;
 }
 
 export async function updateUser({
@@ -31,11 +31,24 @@ export async function updateUser({
       },
       { upsert: true }
     )
-    revalidatePath(path);
+    if(path) {
+      revalidatePath(path);
+    }
   } catch (error: any) {
     throw new Error(`Failed to create/update user: ${error.message}`)
   }
 };
+
+export async function doesUserExist(userId: string) {
+  connectToDB();
+
+  try {
+    const user = await User.findOne({ id: userId });
+    return !!user;
+  } catch (error: any) {
+    throw new Error(`Failed to check user's existence: ${error.message}`)
+  }
+}
 
 export async function fetchUser(userId: string) {
   connectToDB();
