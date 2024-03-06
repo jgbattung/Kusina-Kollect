@@ -10,6 +10,7 @@ const userSchema = new mongoose.Schema({
   name: {
     type: String
   },
+  image: String,
   createdAt: {
     type: Date,
     default: Date.now
@@ -30,6 +31,10 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
+  onboarded: {
+    type: Boolean,
+    default: false
+  }
 });
 
 const User = mongoose.models.User || mongoose.model('User', userSchema);

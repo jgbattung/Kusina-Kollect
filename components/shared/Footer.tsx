@@ -1,4 +1,6 @@
+import { navbarRoutes } from "@/app/constants"
 import Image from "next/image"
+import Link from "next/link"
 
 function Footer() {
   return (
@@ -13,11 +15,12 @@ function Footer() {
           />
         </div>
         <div className="pb-3">
-          <ul className="grid grid-cols-2 items-left gap-5 text-sm font-semibold">
-            <li>Meals</li>
-            <li>Cuisines</li>
-            <li>Ingredients</li>
-            <li>About Us</li>
+          <ul className="grid grid-cols-2 items-left gap-5 nav-links">
+            {navbarRoutes.map((routes) => (
+              <li key={routes.name}>
+                <Link href={routes.path}>{routes.name.toUpperCase()}</Link>
+              </li>
+            ))}
           </ul>
         </div>
         <div className="flex flex-col gap-2 pb-3 max-md:items-center">
