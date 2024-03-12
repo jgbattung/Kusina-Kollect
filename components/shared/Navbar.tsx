@@ -41,7 +41,7 @@ function Navbar() {
                   </div>
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <NavigationMenuLink>
+                  <NavigationMenuLink asChild>
                     <ul className="min-w-52 bg-white text-sm font-medium ">
                       <Link href="/profile">
                         <li className="p-4 hover:bg-accent-500">
