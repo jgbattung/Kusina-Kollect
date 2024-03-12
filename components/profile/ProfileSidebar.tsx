@@ -31,7 +31,7 @@ function ProfileSidebar({ user }: Props) {
             height={80}
           />
         </div>
-        <p className='font-bold text-md'>Hello, {user.username}</p>
+        <p className='font-bold text-md'>Hello, {user.name ? user.name : user.username}</p>
       </div>
       <div className='pt-4'>
         {profileRoutes.map((route) => (
