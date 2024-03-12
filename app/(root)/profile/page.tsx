@@ -1,5 +1,6 @@
 import { ProfileProvider } from '@/app/context/ProfileContext';
 import ProfileSidebar from '@/components/profile/ProfileSidebar';
+import ProfileWindow from '@/components/profile/ProfileWindow';
 import { fetchUser } from '@/lib/actions/user.actions';
 import { currentUser } from '@clerk/nextjs'
 import { redirect } from 'next/navigation';
@@ -23,12 +24,12 @@ const page = async () => {
 
   return (
     <ProfileProvider>
-      <div className='grid grid-cols-6 gap-3 place-content-center mx-16 my-10'>
-        <div className='col-span-2'>
+      <div className='grid grid-cols-6 gap-3 place-content-center mx-16 my-10 2xl:mx-52 xl:mx-32 lg:mx-20 md:mx-8 max-sm:mx-1'>
+        <div className='col-span-2 max-lg:hidden'>
           <ProfileSidebar user={userData} />
         </div>
-        <div className='h-800 col-span-4'>
-
+        <div className='h-800 col-span-4 max-lg:col-span-6'>
+          <ProfileWindow user={userData} />
         </div>
       </div>
 
