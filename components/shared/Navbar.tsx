@@ -43,15 +43,21 @@ function Navbar() {
                 <NavigationMenuContent>
                   <NavigationMenuLink>
                     <ul className="min-w-52 bg-white text-sm font-medium ">
-                      <li className="p-4 hover:bg-accent-500">
-                        <Link href="/profile">My Profile</Link>
-                      </li>
-                      <li className="p-4 hover:bg-accent-500">
-                        <Link href="/">Add a recipe</Link>
-                      </li>
-                      <li className="p-4 hover:bg-accent-500">
-                        <SignOutButton>Log out</SignOutButton>
-                      </li>
+                      <Link href="/profile">
+                        <li className="p-4 hover:bg-accent-500">
+                          My Profile
+                        </li>
+                      </Link>
+                      <Link href="/submit-recipe">
+                        <li className="p-4 hover:bg-accent-500">
+                          Add a recipe
+                        </li>
+                      </Link>
+                      <SignOutButton>
+                        <li className="p-4 hover:bg-accent-500">
+                          Log out
+                        </li>
+                      </SignOutButton>
                     </ul>
                   </NavigationMenuLink>
                 </NavigationMenuContent>
