@@ -5,6 +5,9 @@ import Link from "next/link"
 import SearchBar from "./SearchBar"
 import { navbarRoutes } from "@/app/constants"
 import { usePathname } from "next/navigation"
+import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList } from "../ui/navigation-menu"
+import { NavigationMenuTrigger } from "@radix-ui/react-navigation-menu"
+import { SignOutButton, SignedIn } from "@clerk/nextjs"
 
 function Navbar() {
   const currentPathname = usePathname();
@@ -21,15 +24,47 @@ function Navbar() {
           />
         </Link>
         <SearchBar />
-        <div className="flex items-center gap-2">
-          <Image 
-            src="/assets/profile-icon-default.png"
-            alt="Profile icon"
-            width={25}
-            height={25}
-          />
-          <p className="max-md:hidden">My Account</p>
-        </div>
+        <SignedIn>
+          <NavigationMenu>
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger>
+                  <div className="flex items-center gap-2">
+                    <Image 
+                      src="/assets/profile-icon-default.png"
+                      alt="Profile icon"
+                      width={25}
+                      height={25}
+                    />
+                    <p className="max-md:hidden">My Account</p>
+                    <span className="text-xs font-light">▼</span>
+                  </div>
+                </NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <NavigationMenuLink asChild>
+                    <ul className="min-w-52 bg-white text-sm font-medium ">
+                      <Link href="/profile">
+                        <li className="p-4 hover:bg-accent-500">
+                          My Profile
+                        </li>
+                      </Link>
+                      <Link href="/submit-recipe">
+                        <li className="p-4 hover:bg-accent-500">
+                          Add a recipe
+                        </li>
+                      </Link>
+                      <SignOutButton>
+                        <li className="p-4 hover:bg-accent-500">
+                          Log out
+                        </li>
+                      </SignOutButton>
+                    </ul>
+                  </NavigationMenuLink>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
+        </SignedIn>
       </div>
       <nav className="max-lg:hidden pt-2 flex flex-1 items-center justify-evenly">
         <div>
