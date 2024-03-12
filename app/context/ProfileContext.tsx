@@ -8,7 +8,7 @@ export const ProfileContext = createContext({
 })
 
 export const ProfileProvider = ({ children }: any) => {
-  const [selectedTab, setSelectedTab] = useState('');
+  const [selectedTab, setSelectedTab] = useState('Personal Info');
 
   return (
     <ProfileContext.Provider value={{ selectedTab, setSelectedTab }}>
