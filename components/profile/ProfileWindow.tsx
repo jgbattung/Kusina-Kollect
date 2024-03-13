@@ -3,6 +3,8 @@
 import { ProfileContext } from '@/app/context/ProfileContext'
 import React, { useContext } from 'react'
 import AccountInfo from './AccountInfo';
+import SavedItems from './SavedItems';
+import MyRecipes from './MyRecipes';
 
 interface Props {
   user: {
@@ -25,10 +27,10 @@ function ProfileWindow({ user }: Props) {
         content = <AccountInfo user={user} />
         break;
       case 'Saved Items & Collections':
-        content = 'Saved Items & Collections'
+        content = <SavedItems user={user} />
         break;
       case 'My Recipes':
-        content = 'My Recipes'
+        content = <MyRecipes user={user} />
         break;
       default:
         content = <AccountInfo user={user} />
