@@ -126,14 +126,25 @@ const AccountInfo = ({ user }: Props) => {
               render={({ field }) => (
                 <FormItem className='flex flex-col items-center justify-center md:order-2 md:row-span-2 md:col-span-2'>
                   <FormLabel className='font-bold'>
-                    <Image 
-                      src={field.value}
-                      alt='profile-photo'
-                      width={120}
-                      height={120}
-                      priority
-                      className='object-contain'
-                    />
+                    {field?.value ? (
+                      <Image 
+                        src={field.value}
+                        alt='profile-photo'
+                        width={120}
+                        height={120}
+                        priority
+                        className='object-contain'
+                      />
+                    ) : (
+                      <Image 
+                        src='/assets/profile-icon-default.png'
+                        alt='default-profile-photo'
+                        width={120}
+                        height={120}
+                        priority
+                        className='object-contain'
+                      />
+                    )}
                   </FormLabel>
                   <FormControl>
                     <Input 
