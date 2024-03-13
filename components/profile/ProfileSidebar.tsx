@@ -25,7 +25,7 @@ function ProfileSidebar({ user }: Props) {
       <div className='flex gap-4 items-center justify-left'>
         <div>
           <Image 
-            src={user.image}
+            src={`${user?.image ? user.image : '/assets/profile-icon-default.png'}`}
             alt='profile photo'
             width={80}
             height={80}
