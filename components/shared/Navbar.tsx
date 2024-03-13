@@ -7,10 +7,29 @@ import { navbarRoutes } from "@/app/constants"
 import { usePathname } from "next/navigation"
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList } from "../ui/navigation-menu"
 import { NavigationMenuTrigger } from "@radix-ui/react-navigation-menu"
-import { SignOutButton, SignedIn } from "@clerk/nextjs"
+import { SignOutButton, SignedIn, useUser } from "@clerk/nextjs"
+import { useEffect, useState } from "react"
+import { fetchUser } from "@/lib/actions/user.actions"
 
 function Navbar() {
   const currentPathname = usePathname();
+  const { user } = useUser();
+  const [userImage, setUserImage] = useState('/assets/profile-icon-default.png')
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      if (user) {
+        try {
+          const userData = await fetchUser(user.id);
+          setUserImage(userData.image);
+        } catch (error: any) {
+          throw new Error(`Failed to fetch user data: ${error.message}`)
+        }
+      }
+    };
+
+    fetchUserData();
+  }, [user]);
 
   return (
     <header className="top-0 left-0 right-0 flex flex-col border-b border-gray-200 py-5 shadow-sm max-md:py-2">
@@ -31,7 +50,7 @@ function Navbar() {
                 <NavigationMenuTrigger>
                   <div className="flex items-center gap-2">
                     <Image 
-                      src="/assets/profile-icon-default.png"
+                      src={userImage}
                       alt="Profile icon"
                       width={25}
                       height={25}
