@@ -1,8 +1,25 @@
+import AddRecipe from '@/components/forms/AddRecipe'
+import { fetchUser } from '@/lib/actions/user.actions';
+import { currentUser } from '@clerk/nextjs'
+import { redirect } from 'next/navigation';
+
 import React from 'react'
 
-const page = () => {
+const page = async () => {
+  const user = await currentUser();
+  if (!user) redirect('/sign-in');
+
+  const userInfo = await fetchUser(user.id);
+  
+  const userData = {
+    username: userInfo?.username || user?.username,
+    objectId: userInfo?._id,
+  }
+
   return (
-    <div>Add a Recipe</div>
+    <div className='page-container'>
+      <AddRecipe user={userData} />
+    </div>
   )
 }
 
