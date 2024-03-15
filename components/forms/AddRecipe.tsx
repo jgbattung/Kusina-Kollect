@@ -5,6 +5,8 @@ import { RecipeValidation } from '@/lib/validations/recipe'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useFieldArray, useForm } from 'react-hook-form'
 import { Button } from '../ui/button'
+import { Input } from '../ui/input'
+import { Textarea } from "../ui/textarea"
 
 
 interface Props {
@@ -19,8 +21,8 @@ type FormData = {
   description: string,
   ingredients: { value: string }[],
   directions: { value: string }[],
+  tags: string[],
   // images: string[],
-  // tags: string[],
 }
 
 const AddRecipe = ({ user }: Props) => {
@@ -55,7 +57,13 @@ const AddRecipe = ({ user }: Props) => {
   })
 
   const onSubmit = async (data: FormData) => {
-    console.log(data)
+    const transformedData = {
+      ...data,
+      ingredients: data.ingredients.map(ingredient => ingredient.value),
+      directions: data.directions.map(direction => direction.value),
+      // Handle tags and images as needed
+    };
+    console.log(transformedData)
   }
 
   return (
@@ -71,13 +79,13 @@ const AddRecipe = ({ user }: Props) => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div>
             <label htmlFor="name">Recipe Name*</label>
-            <input {...register("name")} placeholder='Give your recipe a title' />
+            <Input {...register("name")} placeholder='Give your recipe a title' />
             {errors.name && <p>{errors.name.message}</p>}
           </div>
 
           <div>
             <label htmlFor="description">Description*</label>
-            <input {...register("description")} placeholder='Share the story behind your recipe' />
+            <Input {...register("description")} placeholder='Share the story behind your recipe' />
             {errors.description && <p>{errors.description.message}</p>}
           </div>
 
@@ -87,7 +95,7 @@ const AddRecipe = ({ user }: Props) => {
           
             {ingredientFields.map((field, index) => (
               <div key={field.id}>
-                <input
+                <Input
                   {...register(`ingredients.${index}.value`)}
                   placeholder='e.g. 1 tbsp canola oil'
                 />
@@ -107,7 +115,7 @@ const AddRecipe = ({ user }: Props) => {
           
             {directionFields.map((field, index) => (
               <div key={field.id}>
-                <input 
+                <Input 
                   {...register(`directions.${index}.value`)}
                   placeholder='e.g. Combine all dry ingredients in a large bowl...'
                 />
@@ -119,6 +127,12 @@ const AddRecipe = ({ user }: Props) => {
             ))}
 
             <Button type='button' onClick={() => appendDirection({ value: "" })}>Add Direction</Button>
+          </div>
+          
+          <div>
+            <label htmlFor='tags'>Tags</label>
+            <p>Add tags so others can find your recipe easier. Separate each tag with a coma (,)</p>
+            <Textarea {...register("tags")} placeholder='e.g. "chicken", "lunch", "Ilocano". ' />
           </div>
 
           <Button type='submit'>Submit Recipe</Button>
