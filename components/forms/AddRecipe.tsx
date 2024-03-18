@@ -7,6 +7,9 @@ import { useFieldArray, useForm } from 'react-hook-form'
 import { Button } from '../ui/button'
 import { Input } from '../ui/input'
 import { Textarea } from "../ui/textarea"
+import { ChangeEvent, useState } from 'react'
+import { useUploadThing } from '@/lib/uploadthing'
+import Image from "next/image"
 
 
 interface Props {
@@ -22,10 +25,14 @@ type FormData = {
   ingredients: { value: string }[],
   directions: { value: string }[],
   tags: string[],
-  // images: string[],
+  images: string[],
 }
 
 const AddRecipe = ({ user }: Props) => {
+  const [files, setFiles] = useState<File[]>([]);
+  const [imagePreviews, setImagePreviews] = useState<string[]>([]);
+  const { startUpload } = useUploadThing("imageUploader");
+
   const { register, handleSubmit, formState: {errors}, control } = useForm<FormData>({
     resolver: zodResolver(RecipeValidation),
     mode: "onBlur",
@@ -34,9 +41,10 @@ const AddRecipe = ({ user }: Props) => {
       description: "",
       ingredients: [{ value: "" }],
       directions: [{ value: "" }],
-      // tags: [""],
+      tags: [""],
+      images: [],
     }
-  })
+  });
 
   const { 
     fields: ingredientFields, 
@@ -54,16 +62,35 @@ const AddRecipe = ({ user }: Props) => {
   } = useFieldArray({
     name: 'ingredients',
     control,
-  })
+  });
+
+  const handleImage = (e: ChangeEvent<HTMLInputElement>) => {
+   e.preventDefault();
+
+   const selectedFiles = e.target.files ? Array.from(e.target.files) : [];
+   setFiles(selectedFiles);
+
+   const newImagePreview = selectedFiles
+    .filter(file =>  file.type.includes('image'))
+    .map(file => URL.createObjectURL(file))
+
+    setImagePreviews(newImagePreview);
+  }
 
   const onSubmit = async (data: FormData) => {
     const transformedData = {
       ...data,
       ingredients: data.ingredients.map(ingredient => ingredient.value),
       directions: data.directions.map(direction => direction.value),
-      // Handle tags and images as needed
     };
     console.log(transformedData)
+
+    if (files.length > 0) {
+      await startUpload(files);
+    }
+
+    
+
   }
 
   return (
@@ -87,6 +114,33 @@ const AddRecipe = ({ user }: Props) => {
             <label htmlFor="description">Description*</label>
             <Input {...register("description")} placeholder='Share the story behind your recipe' />
             {errors.description && <p>{errors.description.message}</p>}
+          </div>
+
+          <div>
+            <label htmlFor="images">Photo (optional)</label>
+            <label htmlFor="images">
+              {imagePreviews ? (
+                <Image 
+                  src={imagePreviews[0]}
+                  alt='recipe image preview'
+                  width={96}
+                  height={96}
+                />
+              ) : (
+                <Image
+                  src='/assets/recipe-default.png'
+                  alt='default recipe image'
+                  width={96}
+                  height={96}
+                />
+              )}
+            </label>
+            <Input 
+              type='file'
+              accept='image/*'
+              multiple
+              onChange={handleImage}
+            />
           </div>
 
           <div>
