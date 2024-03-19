@@ -89,8 +89,8 @@ const AddRecipe = ({ user }: Props) => {
       await startUpload(files);
     }
 
-    
-
+  const onError = (errors: any) => {
+    console.log("FORM ERROR:", errors);
   }
 
   return (
@@ -101,9 +101,9 @@ const AddRecipe = ({ user }: Props) => {
         <div className='border border-t border-gray-300 mt-3' />
       </div>
 
-      {/* SUBMISSION FORM */}
+      {/* FORM */}
       <div>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit, onError)}>
           <div>
             <label htmlFor="name">Recipe Name*</label>
             <Input {...register("name")} placeholder='Give your recipe a title' />
