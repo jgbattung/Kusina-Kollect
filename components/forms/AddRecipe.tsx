@@ -122,11 +122,13 @@ const AddRecipe = ({ user }: Props) => {
               {imagePreviews.length > 0 ? (
                 imagePreviews.map((preview, index) => (
                   <Image 
-                  src={imagePreviews[0]}
-                  alt='recipe image preview'
-                  width={96}
-                  height={96}
-                />
+                    key={index}
+                    src={preview}
+                    alt={`recipe image preview ${index + 1}`}
+                    width={96}
+                    height={96}
+                  />
+                ))
               ) : (
                 <Image
                   src='/assets/recipe-default.png'
