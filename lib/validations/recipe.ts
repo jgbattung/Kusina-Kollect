@@ -5,7 +5,7 @@ export const RecipeValidation = z.object({
     .min(1, { message: 'Recipe name is required.' })
     .max(100, { message: 'Recipe name must be 100 characters or fewer.' }),
   description: z.string()
-    .min(50, { message: 'Recipe description must be at least 100 characters.' })
+    .min(50, { message: 'Recipe description must be at least 50 characters.' })
     .max(500, { message: 'Recipe descriptions must be 500 characters or fewer.' }),
   ingredients: z.array(
     z.object({
