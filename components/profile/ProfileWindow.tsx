@@ -2,7 +2,7 @@
 
 import { ProfileContext } from '@/app/context/ProfileContext'
 import React, { useContext } from 'react'
-import AccountInfo from './AccountInfo';
+import AccountInfo from '../forms/AccountInfo';
 import SavedItems from './SavedItems';
 import MyRecipes from './MyRecipes';
 

@@ -67,7 +67,7 @@ function Navbar() {
                           My Profile
                         </li>
                       </Link>
-                      <Link href="/submit-recipe">
+                      <Link href="/add-recipe">
                         <li className="p-4 hover:bg-accent-500">
                           Add a recipe
                         </li>
@@ -102,7 +102,7 @@ function Navbar() {
           </ul>
         </div>
         <div>
-          <Link href='/'><span className="nav-links text-primary-800 underline-custom">SUBMIT A RECIPE</span></Link>
+          <Link href='/add-recipe'><span className="nav-links text-primary-800 underline-custom">SUBMIT A RECIPE</span></Link>
         </div>
       </nav>
     </header>

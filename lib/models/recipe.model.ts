@@ -17,6 +17,10 @@ const recipeSchema = new mongoose.Schema({
     type: String,
     required: true
   }],
+  images: [{
+    type: String,
+    default: []
+  }],
   tags: [String],
   createdAt: {
     type: Date,
@@ -26,6 +30,10 @@ const recipeSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
+  isApproved: {
+    type: Boolean,
+    default: false,
+  }
 });
 
 recipeSchema.pre('save', function (next) {
