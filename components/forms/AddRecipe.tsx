@@ -119,8 +119,9 @@ const AddRecipe = ({ user }: Props) => {
           <div>
             <label htmlFor="images">Photo (optional)</label>
             <label htmlFor="images">
-              {imagePreviews ? (
-                <Image 
+              {imagePreviews.length > 0 ? (
+                imagePreviews.map((preview, index) => (
+                  <Image 
                   src={imagePreviews[0]}
                   alt='recipe image preview'
                   width={96}
