@@ -1,6 +1,5 @@
 "use client"
 
-import * as z from 'zod'
 import { RecipeValidation } from '@/lib/validations/recipe'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useFieldArray, useForm } from 'react-hook-form'
@@ -10,12 +9,15 @@ import { Textarea } from "../ui/textarea"
 import { ChangeEvent, useState } from 'react'
 import { useUploadThing } from '@/lib/uploadthing'
 import Image from "next/image"
+import { saveRecipe } from '@/lib/actions/recipe.actions'
 
 
 interface Props {
   user: {
     username: string,
     objectId: string,
+    isAdmin: boolean,
+    isContributor: boolean,
   }
 }
 
@@ -60,7 +62,7 @@ const AddRecipe = ({ user }: Props) => {
     append: appendDirection, 
     remove: removeDirection, 
   } = useFieldArray({
-    name: 'ingredients',
+    name: 'directions',
     control,
   });
 
@@ -78,16 +80,31 @@ const AddRecipe = ({ user }: Props) => {
   }
 
   const onSubmit = async (data: FormData) => {
-    const transformedData = {
+    
+    if (files.length > 0) {
+      const uploadResults = await startUpload(files);
+      if(uploadResults) {
+        data.images = uploadResults.map(result => result.url);
+      }
+    }
+    
+    const submissionData = {
       ...data,
       ingredients: data.ingredients.map(ingredient => ingredient.value),
       directions: data.directions.map(direction => direction.value),
     };
-    console.log(transformedData)
 
-    if (files.length > 0) {
-      await startUpload(files);
-    }
+    await saveRecipe({
+      name: submissionData.name,
+      description: submissionData.description,
+      ingredients: submissionData.ingredients,
+      directions: submissionData.directions,
+      images: submissionData.images,
+      tags: submissionData.tags,
+      submittedBy: user.objectId,
+      isApproved: user.isAdmin || user.isContributor,
+    })
+  }
 
   const onError = (errors: any) => {
     console.log("FORM ERROR:", errors);
@@ -144,6 +161,7 @@ const AddRecipe = ({ user }: Props) => {
               multiple
               onChange={handleImage}
             />
+            {errors.images && <p>{errors.images.message}</p>}
           </div>
 
           <div>
@@ -167,7 +185,7 @@ const AddRecipe = ({ user }: Props) => {
           </div>
           
           <div>
-            <label>Instructions</label>
+            <label>Directions</label>
             <p>Explain how to make your recipe, including oven temperatures, baking or cooking times, and pan sizes, etc.</p>
           
             {directionFields.map((field, index) => (
