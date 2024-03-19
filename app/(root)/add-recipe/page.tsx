@@ -14,6 +14,8 @@ const page = async () => {
   const userData = {
     username: userInfo?.username || user?.username,
     objectId: userInfo?._id,
+    isAdmin: userInfo?.isAdmin,
+    isContributor: userInfo?.isContributor,
   }
 
   return (
