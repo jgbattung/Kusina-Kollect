@@ -37,3 +37,15 @@
 .center {
   @apply flex items-center justify-center flex-col
 }
+
+.form-label {
+  @apply font-bold text-base
+}
+
+.form-error-text {
+  @apply font-normal text-sm text-red-600
+}
+
+.form-description-text {
+  @apply pb-2 text-sm font-light text-gray-500
+}
