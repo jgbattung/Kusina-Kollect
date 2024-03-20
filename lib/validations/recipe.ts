@@ -31,11 +31,11 @@ export const RecipeValidation = z.object({
   .min(0)
   .max(5, { message: 'You can upload up to 5 images' }),
   tags: z.string()
-    .min(0)
-    .regex(/^[A-Za-z\s,]+$/, { message: "Tags can only include letters, spaces, and commas." }) // Validate for letters, spaces, and commas
-    .transform(tags => 
+    .regex(/^[A-Za-z\s,]*$/, { message: "Tags can only include letters, spaces, and commas." })
+    .transform((tags) => 
       tags.split(',')
           .map(tag => tag.trim())
-          .filter(tag => tag !== "")
-    ),
+          .filter(tag => tag.length > 0)
+    )
+    .optional(),
 })

@@ -87,11 +87,16 @@ const AddRecipe = ({ user }: Props) => {
         data.images = uploadResults.map(result => result.url);
       }
     }
+
+    const ingredientTags = [...new Set(data.ingredients.map(ingredient => ingredient.value.toLowerCase()))];
+
+    const populatedTags = data.tags?.length > 0 ? [...new Set([...data.tags, ...ingredientTags])] :  ingredientTags;
     
     const submissionData = {
       ...data,
       ingredients: data.ingredients.map(ingredient => ingredient.value),
       directions: data.directions.map(direction => direction.value),
+      tags: populatedTags,
     };
 
     await saveRecipe({
@@ -111,106 +116,184 @@ const AddRecipe = ({ user }: Props) => {
   }
 
   return (
-    <section className='flex flex-col gap-6 bg-white shadow-lg py-8 px-14 max-w-2xl'>
-      <div className='flex flex-col text-left gap-4'>
-        <h1 className='heading-bold'>Add a Recipe</h1>
-        <p className=' text-sm'>From your kitchen to the world, submit your recipe today and showcase the rich diversity of Filipino cuisine. Every dish tells a story.</p>
-        <div className='border border-t border-gray-300 mt-3' />
+    <section className='flex flex-col gap-6 bg-white shadow-lg py-8 px-14 max-w-3xl'>
+      <div className='flex flex-col text-left gap-4 max-sm:gap-1'>
+        <h1 className='heading-bold max-sm:text-2xl'>Add a Recipe</h1>
+        <p className='text-sm'>From your kitchen to the world, submit your recipe today and showcase the rich diversity of Filipino cuisine. Every dish tells a story.</p>
       </div>
+
+      <div className='border border-t-0 border-gray-300 mt-3 max-sm:mt-1' />
 
       {/* FORM */}
       <div>
         <form onSubmit={handleSubmit(onSubmit, onError)}>
-          <div>
-            <label htmlFor="name">Recipe Name*</label>
-            <Input {...register("name")} placeholder='Give your recipe a title' />
-            {errors.name && <p>{errors.name.message}</p>}
-          </div>
+          <div className='flex max-md:flex-col justify-between max-md:gap-3 md:gap-6'>
+            <div className='flex flex-col gap-10 w-3/4 max-md:w-full max-md:gap-3'>
+              <div>
+                <label htmlFor="name" className='form-label'>Recipe Name*</label>
+                <Input 
+                  {...register("name")} 
+                  placeholder='Give your recipe a title'
+                  className='py-6 px-4 placeholder:text-gray-500 mb-1'
+                />
+                {errors.name && <p className='form-error-text'>{errors.name.message}</p>}
+              </div>
 
-          <div>
-            <label htmlFor="description">Description*</label>
-            <Input {...register("description")} placeholder='Share the story behind your recipe' />
-            {errors.description && <p>{errors.description.message}</p>}
-          </div>
+              <div className=''>
+                <label htmlFor="description" className='form-label'>Description*</label>
+                <Textarea 
+                  {...register("description")} 
+                  placeholder='Share the story behind your recipe.'
+                  rows={8}
+                  className='py-6 px-4 placeholder:text-gray-500 mb-1' />
+                {errors.description && <p className='form-error-text'>{errors.description.message}</p>}
+              </div>
+            </div>
 
-          <div>
-            <label htmlFor="images">Photo (optional)</label>
-            <label htmlFor="images">
-              {imagePreviews.length > 0 ? (
-                imagePreviews.map((preview, index) => (
+            <div className='flex flex-col max:md'>
+              <label htmlFor="images" className='form-label'>Photo (optional)</label>
+              <label htmlFor="images">
+                {imagePreviews.length > 0 ? (
                   <Image 
-                    key={index}
-                    src={preview}
-                    alt={`recipe image preview ${index + 1}`}
-                    width={96}
-                    height={96}
+                    src={imagePreviews[0]}
+                    alt={`recipe image preview 1`}
+                    width={270}
+                    height={270}
+                    className='min-h-64 min-w-64 object-cover max-md:min-w-full max-md:max-h-64 max-md:object-cover'
                   />
-                ))
-              ) : (
+                ) : (
                 <Image
                   src='/assets/recipe-default.png'
                   alt='default recipe image'
-                  width={96}
-                  height={96}
+                  width={270}
+                  height={270}
+                  className='max-md:min-w-full max-md:max-h-64 max-md:object-cover'
                 />
-              )}
-            </label>
-            <Input 
-              type='file'
-              accept='image/*'
-              multiple
-              onChange={handleImage}
-            />
-            {errors.images && <p>{errors.images.message}</p>}
+                )}
+              </label>
+              <p className='pt-2 font-light text-xs text-gray-400'>Use JPEG or PNG. You can upload up to 5 photos.</p>
+              <Input 
+                type='file'
+                accept='image/*'
+                multiple
+                onChange={handleImage}
+                className='border-none cursor-pointer file:rounded-full file:text-xs file:py-2 file:px-4 file:bg-secondary-500 file:hover:bg-primary-500 bg-transparent outline-none file:text-black transition-all'
+              />
+              {errors.images && <p className='form-error-text'>{errors.images.message}</p>}
+            </div>            
           </div>
 
+          <div className='form-section-div' />
+
           <div>
-            <label>Ingredients</label>
-            <p>Enter one ingredient per line. Include the quantity (i.e. cups, tablespoons) and any special preparation (i.e. sifted, softened, chopped).</p>
+            <label className='form-label'>Ingredients*</label>
+            <p className='form-description-text'>Enter one ingredient per line. Include the quantity (i.e. cups, tablespoons) and any special preparation (i.e. sifted, softened, chopped).</p>
           
             {ingredientFields.map((field, index) => (
               <div key={field.id}>
-                <Input
-                  {...register(`ingredients.${index}.value`)}
-                  placeholder='e.g. 1 tbsp canola oil'
-                />
-                <Button type='button' onClick={() => removeIngredient(index)}>x</Button>
+                <div className='flex items-center mb-4'>
+                  <Input
+                    {...register(`ingredients.${index}.value`)}
+                    placeholder='e.g. 1 tbsp canola oil'
+                    className='py-6 px-4 placeholder:text-gray-500'
+                  />
+                  <Button 
+                    type='button' 
+                    onClick={() => removeIngredient(index)} 
+                    className='text-gray-500 flex items-center hover:text-black'  
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-7 h-7">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    </svg>
+                  </Button>
+                </div>
                 {errors.ingredients?.[index]?.value?.message && (
-                  <p>{errors?.ingredients[index]?.value?.message}</p>
+                  <p className='form-error-text -mt-3 mb-4'>{errors?.ingredients[index]?.value?.message}</p>
                 )}
               </div>
             ))}
 
-            <Button type='button' onClick={() => appendIngredient({ value: "" })}>Add Ingredient</Button>
+            <Button 
+              type='button' 
+              onClick={() => appendIngredient({ value: "" })}
+              className='flex items-center gap-1 border-2 border-primary-800 rounded-xl py-5 px-8 mt-8 hover:text-white hover:bg-primary-800 transition-all'
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" className="w-5 h-5 max-sm:w-4 max-sm:h-4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+              </svg>
+              <span className='text-sm font-bold max-sm:text-xs'>
+                ADD INGREDIENT
+              </span>
+            </Button>
           </div>
+
+          <div className='form-section-div' />
           
           <div>
-            <label>Directions</label>
-            <p>Explain how to make your recipe, including oven temperatures, baking or cooking times, and pan sizes, etc.</p>
+            <label className='form-label'>Directions*</label>
+            <p className='form-description-text'>Explain how to make your recipe, including oven temperatures, baking or cooking times, and pan sizes, etc.</p>
           
             {directionFields.map((field, index) => (
               <div key={field.id}>
-                <Input 
-                  {...register(`directions.${index}.value`)}
-                  placeholder='e.g. Combine all dry ingredients in a large bowl...'
-                />
-                <Button type='button' onClick={() => removeDirection(index)}>x</Button>
+                <div className='flex items-center mb-4'>
+                  <Textarea 
+                    {...register(`directions.${index}.value`)}
+                    placeholder='e.g. Combine all dry ingredients in a large bowl...'
+                    className='py-6 px-4 placeholder:text-gray-500'
+                    rows={2}
+                  />
+                  <Button 
+                    type='button' 
+                    onClick={() => removeDirection(index)}
+                    className='text-gray-500 flex items-center hover:text-black'
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-7 h-7">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    </svg>
+                  </Button>
+                </div>
                 {errors.directions?.[index]?.value?.message && (
-                  <p>{errors?.directions[index]?.value?.message}</p>
+                  <p className='form-error-text -mt-3 mb-4'>{errors?.directions[index]?.value?.message}</p>
                 )}
               </div>
             ))}
 
-            <Button type='button' onClick={() => appendDirection({ value: "" })}>Add Direction</Button>
-          </div>
-          
-          <div>
-            <label htmlFor='tags'>Tags</label>
-            <p>Add tags so others can find your recipe easier. Separate each tag with a coma (,)</p>
-            <Textarea {...register("tags")} placeholder='e.g. "chicken", "lunch", "Ilocano". ' />
+            <Button 
+              type='button'  
+              onClick={() => appendDirection({ value: "" })}
+              className='flex items-center gap-1 border-2 border-primary-800 rounded-xl py-5 px-8 mt-8 hover:text-white hover:bg-primary-800 transition-all'
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" className="w-5 h-5 max-sm:w-4 max-sm:h-4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+              </svg>
+              <span className='text-sm font-bold max-sm:text-xs'>
+                ADD DIRECTION
+              </span>
+            </Button>
           </div>
 
-          <Button type='submit'>Submit Recipe</Button>
+          <div className='form-section-div' />
+          
+          <div>
+            <label htmlFor='tags' className='form-label'>Tags</label>
+            <p className='form-description-text'>Add tags so others can find your recipe easier. Separate each tag with a coma (,)</p>
+            <Textarea 
+              {...register("tags")} 
+              placeholder='e.g. chicken, lunch, Ilocano.'
+              className='py-6 px-4 placeholder:text-gray-500' 
+            />
+          </div>
+
+          <div className='form-section-div' />
+
+          <div className='flex items-center justify-end'>
+            <Button 
+              type='submit'
+              className='text-white px-8 py-6 bg-complementary-500 hover:bg-complementary-800 rounded-xl'
+            >
+              <span className='font-semibold text-lg'>Submit Recipe</span>
+            </Button>
+          </div>
         </form>
       </div>
     </section>
