@@ -87,11 +87,16 @@ const AddRecipe = ({ user }: Props) => {
         data.images = uploadResults.map(result => result.url);
       }
     }
+
+    const ingredientTags = [...new Set(data.ingredients.map(ingredient => ingredient.value.toLowerCase()))];
+
+    const populatedTags = data.tags?.length > 0 ? [...new Set([...data.tags, ...ingredientTags])] :  ingredientTags;
     
     const submissionData = {
       ...data,
       ingredients: data.ingredients.map(ingredient => ingredient.value),
       directions: data.directions.map(direction => direction.value),
+      tags: populatedTags,
     };
 
     await saveRecipe({
