@@ -39,13 +39,17 @@
 }
 
 .form-label {
-  @apply font-bold text-base
+  @apply font-bold text-base max-sm:text-sm
 }
 
 .form-error-text {
-  @apply font-normal text-sm text-red-600
+  @apply font-normal text-sm text-red-600 max-sm:text-xs
 }
 
 .form-description-text {
   @apply pb-2 text-sm font-light text-gray-500
+}
+
+.form-section-div {
+  @apply border border-t-0 border-gray-300 my-8 max-sm:my-5
 }
