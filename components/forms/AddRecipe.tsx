@@ -11,6 +11,7 @@ import { useUploadThing } from '@/lib/uploadthing'
 import Image from "next/image"
 import { saveRecipe } from '@/lib/actions/recipe.actions'
 import { useLoadingStore } from '@/lib/store'
+import { useRouter } from 'next/navigation'
 
 
 interface Props {
@@ -32,6 +33,7 @@ type FormData = {
 }
 
 const AddRecipe = ({ user }: Props) => {
+  const router = useRouter();
   const [files, setFiles] = useState<File[]>([]);
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const { startUpload } = useUploadThing("imageUploader");
@@ -114,6 +116,7 @@ const AddRecipe = ({ user }: Props) => {
     });
 
     setIsLoading(false);
+    router.push("/")
   }
 
   const onError = (errors: any) => {
