@@ -10,6 +10,7 @@ import { ChangeEvent, useState } from 'react'
 import { useUploadThing } from '@/lib/uploadthing'
 import Image from "next/image"
 import { saveRecipe } from '@/lib/actions/recipe.actions'
+import { useLoadingStore } from '@/lib/store'
 
 
 interface Props {
@@ -34,6 +35,7 @@ const AddRecipe = ({ user }: Props) => {
   const [files, setFiles] = useState<File[]>([]);
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const { startUpload } = useUploadThing("imageUploader");
+  const {isLoading, setIsLoading} = useLoadingStore();
 
   const { register, handleSubmit, formState: {errors}, control } = useForm<FormData>({
     resolver: zodResolver(RecipeValidation),
@@ -80,6 +82,7 @@ const AddRecipe = ({ user }: Props) => {
   }
 
   const onSubmit = async (data: FormData) => {
+    setIsLoading(true);
     
     if (files.length > 0) {
       const uploadResults = await startUpload(files);
@@ -108,7 +111,9 @@ const AddRecipe = ({ user }: Props) => {
       tags: submissionData.tags,
       submittedBy: user.objectId,
       isApproved: user.isAdmin || user.isContributor,
-    })
+    });
+
+    setIsLoading(false);
   }
 
   const onError = (errors: any) => {
@@ -290,8 +295,9 @@ const AddRecipe = ({ user }: Props) => {
             <Button 
               type='submit'
               className='text-white px-8 py-6 bg-complementary-500 hover:bg-complementary-800 rounded-xl'
+              disabled={isLoading}
             >
-              <span className='font-semibold text-lg'>Submit Recipe</span>
+              <span className='font-semibold text-lg'>{isLoading ? 'Submitting your recipe...' : 'Submit Recipe'}</span>
             </Button>
           </div>
         </form>
