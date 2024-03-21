@@ -11,6 +11,7 @@ import { useUploadThing } from '@/lib/uploadthing'
 import { ChangeEvent, useState } from 'react'
 import { isBase64Image } from '@/lib/utils'
 import { updateUser } from '@/lib/actions/user.actions'
+import { useLoadingStore } from '@/lib/store'
 
 interface Props {
   user: {
@@ -27,6 +28,7 @@ interface Props {
 const AccountInfo = ({ user }: Props) => {
   const pathname = usePathname();
   const { startUpload } = useUploadThing("imageUploader")
+  const {isLoading, setIsLoading} = useLoadingStore();
 
   const [files, setFiles] = useState<File[]>([]);
 
@@ -40,6 +42,7 @@ const AccountInfo = ({ user }: Props) => {
   })
 
   const onSubmit = async (values: z.infer<typeof UserValidation>) => {
+    setIsLoading(true);
     const blob = values.profile_photo;
 
     const hasImageChanged = isBase64Image(blob);
@@ -58,8 +61,9 @@ const AccountInfo = ({ user }: Props) => {
       name: values.name,
       image: values.profile_photo,
       path: pathname,
-    })
+    });
 
+    setIsLoading(false);
   }
 
   const handleImage = (e: ChangeEvent<HTMLInputElement>, fieldChange: (value: string) => void) => {
@@ -159,7 +163,13 @@ const AccountInfo = ({ user }: Props) => {
                 </FormItem>
               )}
             />
-            <Button className='mt-2 px-8 py-4 md:col-span-4 md:order-4 text-white text-md font-bold rounded-xl bg-complementary-500 hover:bg-complementary-800 transition-all' type='submit'>Save Changes</Button>
+            <Button 
+              type='submit'
+              className='mt-2 px-8 py-4 md:col-span-4 md:order-4 text-white text-md font-bold rounded-xl bg-complementary-500 hover:bg-complementary-800 transition-all' 
+              disabled={isLoading}
+            >
+              <span>{isLoading ? 'Saving your changes..' : 'Save Changes' }</span>
+            </Button>
           </form>
         </Form>
       </div>
