@@ -1,3 +1,4 @@
+import NewRecipes from "@/components/shared/NewRecipes";
 import { doesUserExist, updateUser } from "@/lib/actions/user.actions";
 import { currentUser } from "@clerk/nextjs";
 
@@ -23,8 +24,8 @@ export default async function Home() {
   }
 
   return (
-    <div className="flex items-center justify-center">
-      <h1 className="text-primary-500">HOMEPAGE</h1>
+    <div className="page-container">
+      <NewRecipes />
     </div>
   );
 }
