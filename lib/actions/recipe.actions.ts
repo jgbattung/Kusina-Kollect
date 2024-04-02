@@ -27,3 +27,26 @@ export async function saveRecipe(recipeData: SaveRecipeParams): Promise<void> {
     throw new Error(`Failed to save recipe: ${error.message}`)
   }
 }
+
+export async function fetchNewRecipes() {
+  connectToDB();
+
+  const oneMonthAgo = new Date();
+  oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
+
+  try {
+    const newRecipes = await Recipe.find({ 
+      isApproved: true,
+      createdAt: { $gte: oneMonthAgo }
+    })
+    .sort({ createdAt: 'desc'})
+    .limit(6)
+    .select(' _id name images ')
+    .exec();
+
+    return newRecipes;
+
+  } catch (error: any) {
+    throw new Error(`Failed to fetch new recipes: ${error.message}`)
+  }
+}

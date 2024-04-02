@@ -60,6 +60,9 @@ const config = {
           foreground: "hsl(var(--card-foreground))",
         },
       },
+      minWidth: {
+        '128': '500px',
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
