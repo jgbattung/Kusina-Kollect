@@ -8,6 +8,11 @@
   text-underline-offset: 4px;
 }
 
+.underline-colored {
+  text-decoration-line: underline;
+  text-decoration-color: #ffa726;
+}
+
 .underline-active {
   text-decoration: underline;
   text-decoration-color: #ffa726;
