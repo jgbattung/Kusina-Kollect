@@ -10,7 +10,7 @@ interface Props {
 const RecipeCard = ({ id, name, images }: Props) => {
   return (
     <article>
-      <Link href="/" className="group flex flex-col gap-3">
+      <Link href={`/recipe/${id}`} className="group flex flex-col gap-3">
         <div className="relative">
           <Image 
             src={images[0]}
