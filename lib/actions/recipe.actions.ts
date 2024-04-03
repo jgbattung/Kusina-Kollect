@@ -1,6 +1,7 @@
 "use server"
 
 import Recipe from "../models/recipe.model";
+import User from "../models/user.model";
 import { connectToDB } from "../mongoose";
 
 interface SaveRecipeParams {
@@ -49,4 +50,21 @@ export async function fetchNewRecipes() {
   } catch (error: any) {
     throw new Error(`Failed to fetch new recipes: ${error.message}`)
   }
+}
+
+export async function fetchRecipeById(id: string) {
+  connectToDB();
+
+  try {
+    const recipe = Recipe.findById(id)
+      .populate({
+        path: 'submittedBy',
+        model: User,
+        select: '_id id image name username'
+      }).exec()
+
+    return recipe;
+  } catch (error: any) {
+    throw new Error(`Failed to fetch recipe: ${error.message}`)
+  } 
 }
