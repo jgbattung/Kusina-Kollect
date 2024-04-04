@@ -12,12 +12,21 @@ const Page = async ({ params }: { params: { id: string } }) => {
     <section className="page-container mt-5 mb-10">
       <div className="flex flex-col gap-8 max-w-screen-sm">
         <div className="flex flex-col gap-4 text-left ">
-          <h1 className="heading-bold">{recipe.name}</h1>
+          <h1 className="heading-bold max-md:text-3xl">{recipe.name}</h1>
           <p className="font-light">{recipe.description}</p>
-          <div className="flex gap-2 text-sm font-light">
-            <p className="font-serif">Submitted by <span className="font-bold">{recipe.submittedBy.name}</span></p>
-            <p>|</p>
-            <p>{formatDate(recipe.createdAt)}</p>
+          <div className="flex items-center max-md:flex-col max-md:items-start gap-2 text-sm font-light">
+            <div className="flex gap-2">
+              <p className="font-serif">Submitted by <span className="font-bold">{recipe.submittedBy.name}</span></p>
+              <Image 
+                src={recipe.submittedBy.image}
+                alt={recipe.submittedBy.name}
+                width={18}
+                height={18}
+                className="rounded-full object-contain"
+              />
+            </div>
+            <p className="max-md:hidden">|</p>
+            <p className="text-xs">{formatDate(recipe.createdAt)}</p>
           </div>
         </div>
 
@@ -52,8 +61,8 @@ const Page = async ({ params }: { params: { id: string } }) => {
           )}
         </div>
 
-        <div className="my-4">
-          <p className="heading-large mb-8">Ingredients</p>
+        <div className="my-4 max-md:my-2">
+          <p className="heading-large mb-8 max-md:text-xl max-md:mb-3">Ingredients</p>
           <ul className="list-disc ml-4 marker:text-primary-500">
             {recipe.ingredients.map((ingredient: string, index: Key) => (
               <li key={index} className="my-2 font-light">{ingredient}</li>
@@ -61,11 +70,11 @@ const Page = async ({ params }: { params: { id: string } }) => {
           </ul>
         </div>
 
-        <div className="my-4">
-          <p className="heading-large mb-8">Directions</p>
+        <div className="my-4 max-md:my-2">
+          <p className="heading-large mb-8 max-md:text-xl max-md:mb-3">Directions</p>
           <ul className="list-none">
             {recipe.directions.map((direction: string, index: string) => (
-              <li key={index} className="my-7 font-light flex flex-col gap-1">
+              <li key={index} className="my-7 font-light flex flex-col gap-1 first:mt-2">
                 <p className="font-bold">{`Step ${parseInt(index) + 1}`}</p>
                 <p>{direction}</p>
               </li>
@@ -75,7 +84,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
 
         <div className="flex flex-col items-center gap-4 text-white justify-center bg-complementary-500 py-5 px-8 border rounded-2xl">
           <p className="font-bold text-xl">Did you make this recipe?</p>
-          <p>Tag @KusinaKollect on Instagram and show everyone your delicious meal!</p>
+          <p className="font-light">Tag @KusinaKollect on Instagram and show everyone your delicious meal!</p>
         </div>
       </div>
     </section>
