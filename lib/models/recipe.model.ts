@@ -22,6 +22,14 @@ const recipeSchema = new mongoose.Schema({
     default: []
   }],
   tags: [String],
+  prepTime: {
+    value: { type: Number, required: true, min: 0 },
+    unit: { type: String, required: true, enum: ['mins', 'hours'] },
+  },
+  cookTime: {
+    value: { type: Number, required: true, min: 0 },
+    unit: { type: String, required: true, enum: ['mins', 'hours'] },
+  },
   createdAt: {
     type: Date,
     default: Date.now
