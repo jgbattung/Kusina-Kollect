@@ -12,6 +12,7 @@ import Image from "next/image"
 import { saveRecipe } from '@/lib/actions/recipe.actions'
 import { useLoadingStore } from '@/lib/store'
 import { useRouter } from 'next/navigation'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
 
 
 interface Props {
@@ -30,6 +31,8 @@ type FormData = {
   directions: { value: string }[],
   tags: string[],
   images: string[],
+  prepTime: { value: number, unit: string },
+  cookTime: { value: number, unit: string },
 }
 
 const AddRecipe = ({ user }: Props) => {
@@ -49,6 +52,8 @@ const AddRecipe = ({ user }: Props) => {
       directions: [{ value: "" }],
       tags: [""],
       images: [],
+      prepTime: { unit: 'mins' },
+      cookTime: { unit: 'mins' },
     }
   });
 
@@ -210,8 +215,8 @@ const AddRecipe = ({ user }: Props) => {
                     onClick={() => removeIngredient(index)} 
                     className='text-gray-500 flex items-center hover:text-black'  
                   >
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-7 h-7">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-7 h-7">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                     </svg>
                   </Button>
                 </div>
@@ -226,8 +231,8 @@ const AddRecipe = ({ user }: Props) => {
               onClick={() => appendIngredient({ value: "" })}
               className='flex items-center gap-1 border-2 border-primary-800 rounded-xl py-5 px-8 mt-8 hover:text-white hover:bg-primary-800 transition-all'
             >
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" className="w-5 h-5 max-sm:w-4 max-sm:h-4">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" className="w-5 h-5 max-sm:w-4 max-sm:h-4">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
               </svg>
               <span className='text-sm font-bold max-sm:text-xs'>
                 ADD INGREDIENT
@@ -255,8 +260,8 @@ const AddRecipe = ({ user }: Props) => {
                     onClick={() => removeDirection(index)}
                     className='text-gray-500 flex items-center hover:text-black'
                   >
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-7 h-7">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-7 h-7">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                     </svg>
                   </Button>
                 </div>
@@ -271,13 +276,53 @@ const AddRecipe = ({ user }: Props) => {
               onClick={() => appendDirection({ value: "" })}
               className='flex items-center gap-1 border-2 border-primary-800 rounded-xl py-5 px-8 mt-8 hover:text-white hover:bg-primary-800 transition-all'
             >
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" className="w-5 h-5 max-sm:w-4 max-sm:h-4">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" className="w-5 h-5 max-sm:w-4 max-sm:h-4">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
               </svg>
               <span className='text-sm font-bold max-sm:text-xs'>
                 ADD DIRECTION
               </span>
             </Button>
+          </div>
+
+          <div className='form-section-div' />
+
+          <div className='flex items-center gap-2 flex-grow'>
+            <label htmlFor='prepTime' className='form-label w-1/4'>Prep Time</label>
+            <Input 
+              type='number'
+              {...register("prepTime.value", { valueAsNumber: true })}
+              placeholder='0'
+              className='w-1/2 py-6 px-4 placeholder:text-gray-500 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none'
+            />
+            <Select {...register("prepTime.unit")}>
+              <SelectTrigger className='w-1/4 py-6 px-4'>
+                <SelectValue placeholder='mins' />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value='mins'>mins</SelectItem>
+                <SelectItem value='hours'>hours</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className='flex items-center gap-2 flex-grow mt-6'>
+            <label htmlFor='cookTime' className='form-label w-1/4'>Cook Time</label>
+            <Input 
+              type='number'
+              {...register("cookTime.value", { valueAsNumber: true })}
+              placeholder='0'
+              className='w-1/2 py-6 px-4 placeholder:text-gray-500 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none'
+            />
+            <Select {...register("prepTime.unit")}>
+              <SelectTrigger className='w-1/4 py-6 px-4'>
+                <SelectValue placeholder='mins' />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value='mins'>mins</SelectItem>
+                <SelectItem value='hours'>hours</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
 
           <div className='form-section-div' />
