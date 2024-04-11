@@ -1,5 +1,12 @@
 import * as z from 'zod'
 
+const TimeValidation = z.object({
+  value: z.number()
+    .nonnegative({ message: 'Time value cannot be negative.' })
+    .int({ message: 'Time value must be an integer' }),
+  unit: z.enum(['mins', 'hours'])
+})
+
 export const RecipeValidation = z.object({
   name: z.string()
     .min(1, { message: 'Recipe name is required.' })
@@ -38,4 +45,6 @@ export const RecipeValidation = z.object({
           .filter(tag => tag.length > 0)
     )
     .optional(),
+  prepTime: TimeValidation,
+  cookTime: TimeValidation,
 })
