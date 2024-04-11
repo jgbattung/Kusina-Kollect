@@ -11,6 +11,14 @@ interface SaveRecipeParams {
   directions: string[];
   images: string[];
   tags: string[];
+  prepTime: {
+    value: number;
+    unit: string;
+  };
+  cookTime: {
+    value: number;
+    unit: string;
+  };
   submittedBy: string;
   isApproved: boolean;
 }
