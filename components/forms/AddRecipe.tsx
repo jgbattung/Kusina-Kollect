@@ -2,7 +2,7 @@
 
 import { RecipeValidation } from '@/lib/validations/recipe'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useFieldArray, useForm } from 'react-hook-form'
+import { useFieldArray, useForm, Controller } from 'react-hook-form'
 import { Button } from '../ui/button'
 import { Input } from '../ui/input'
 import { Textarea } from "../ui/textarea"
@@ -12,7 +12,7 @@ import Image from "next/image"
 import { saveRecipe } from '@/lib/actions/recipe.actions'
 import { useLoadingStore } from '@/lib/store'
 import { useRouter } from 'next/navigation'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '../ui/select'
 
 
 interface Props {
@@ -109,13 +109,17 @@ const AddRecipe = ({ user }: Props) => {
       tags: populatedTags,
     };
 
+    console.log(submissionData);
+
     await saveRecipe({
       name: submissionData.name,
       description: submissionData.description,
       ingredients: submissionData.ingredients,
       directions: submissionData.directions,
-      images: submissionData.images,
       tags: submissionData.tags,
+      images: submissionData.images,
+      prepTime: submissionData.prepTime,
+      cookTime: submissionData.cookTime,
       submittedBy: user.objectId,
       isApproved: user.isAdmin || user.isContributor,
     });
@@ -295,15 +299,24 @@ const AddRecipe = ({ user }: Props) => {
               placeholder='0'
               className='w-1/2 py-6 px-4 placeholder:text-gray-500 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none'
             />
-            <Select {...register("prepTime.unit")}>
-              <SelectTrigger className='w-1/4 py-6 px-4'>
-                <SelectValue placeholder='mins' />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value='mins'>mins</SelectItem>
-                <SelectItem value='hours'>hours</SelectItem>
-              </SelectContent>
-            </Select>
+            <Controller
+              control={control}
+              name="prepTime.unit"
+              defaultValue="mins"
+              render={({ field }) => (
+                <div className='w-1/4 py-6 px-4'>
+                  <select
+                    {...field}
+                    id='prepTimeUnit'
+                    className='p-3 border border-black rounded-md shadow-sm focus:outline-none'
+                  >
+                    <option value='mins'>mins</option>
+                    <option value='hours'>hours</option>
+                  </select>
+                </div>
+              )}
+            >
+            </Controller>
           </div>
 
           <div className='flex items-center gap-2 flex-grow mt-6'>
@@ -314,15 +327,24 @@ const AddRecipe = ({ user }: Props) => {
               placeholder='0'
               className='w-1/2 py-6 px-4 placeholder:text-gray-500 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none'
             />
-            <Select {...register("prepTime.unit")}>
-              <SelectTrigger className='w-1/4 py-6 px-4'>
-                <SelectValue placeholder='mins' />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value='mins'>mins</SelectItem>
-                <SelectItem value='hours'>hours</SelectItem>
-              </SelectContent>
-            </Select>
+            <Controller
+              control={control}
+              name='cookTime.unit'
+              defaultValue='mins'
+              render={({ field }) => (
+                <div className='w-1/4 py-6 px-4'>
+                  <select
+                    {...field}
+                    id='cookTimeUnit'
+                    className='p-3 border border-black rounded-md shadow-sm focus:outline-none'
+                  >
+                    <option value='mins'>mins</option>
+                    <option value='hours'>hours</option>
+                  </select>
+                </div>
+              )}
+            >
+            </Controller>
           </div>
 
           <div className='form-section-div' />
