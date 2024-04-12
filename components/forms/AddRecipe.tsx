@@ -12,7 +12,6 @@ import Image from "next/image"
 import { saveRecipe } from '@/lib/actions/recipe.actions'
 import { useLoadingStore } from '@/lib/store'
 import { useRouter } from 'next/navigation'
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '../ui/select'
 
 
 interface Props {
@@ -29,7 +28,7 @@ type FormData = {
   description: string,
   ingredients: { value: string }[],
   directions: { value: string }[],
-  tags: string[],
+  tags: string,
   images: string[],
   prepTime: { value: number, unit: string },
   cookTime: { value: number, unit: string },
@@ -50,7 +49,7 @@ const AddRecipe = ({ user }: Props) => {
       description: "",
       ingredients: [{ value: "" }],
       directions: [{ value: "" }],
-      tags: [""],
+      tags: "",
       images: [],
       prepTime: { unit: 'mins' },
       cookTime: { unit: 'mins' },
