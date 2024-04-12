@@ -15,3 +15,18 @@ export function formatDate(dateInput: Date | string): string {
   const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day:'numeric' }
   return date.toLocaleDateString('en-US', options);
 }
+
+interface Params {
+  value: number,
+  unit: string
+}
+
+export function getTotalTime(prep: Params, cook: Params) {
+  const prepInMinutes = prep.unit === 'hours' ? prep.value * 60 : prep.value;
+  const cookInMinutes = cook.unit === 'hours' ? cook.value * 60 : cook.value;
+  const totalMinutes = prepInMinutes + cookInMinutes;
+
+  const hours = Math.floor(totalMinutes / 60);
+  const minutes = totalMinutes % 60;
+  return `${hours > 0 ? `${hours} ${hours === 1 ? 'hour' : 'hours'}` : ''} ${minutes > 0 ? `${minutes} ${minutes === 1 ? 'min' : 'mins'}` : ''}`.trim();
+}

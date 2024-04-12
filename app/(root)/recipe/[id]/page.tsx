@@ -1,12 +1,16 @@
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
 import { fetchRecipeById } from "@/lib/actions/recipe.actions"
-import { formatDate } from "@/lib/utils"
+import { formatDate, getTotalTime } from "@/lib/utils"
 import Image from "next/image"
 import { Key } from "react"
 
 const Page = async ({ params }: { params: { id: string } }) => {
 
   const recipe = await fetchRecipeById(params.id)
+
+  const totalTime = getTotalTime(recipe.prepTime, recipe.cookTime);
+
+  console.log(recipe)
 
   return (
     <section className="page-container mt-5 mb-10">
@@ -58,6 +62,38 @@ const Page = async ({ params }: { params: { id: string } }) => {
                 className="object-cover"
               />
             )
+          )}
+        </div>
+
+        <div>
+          {recipe.prepTime && recipe.cookTime && (
+            <div className="relative w-3/4 max-md:w-full grid grid-cols-3 max-md:gap-6 max-sm:grid-cols-1 max-sm:grid-rows-2 gap-3 justify-items-start border border-gray-400 rounded-lg py-8 px-8">
+              <div className="absolute top-0 w-full border border-t-8 border-primary-500 rounded-t-lg" />
+              <div>
+                <p className="font-bold">Prep Time:</p>
+                <p className="font-light">{recipe.prepTime.value}
+                  {recipe.prepTime.unit === 'hours' ? (
+                    recipe.prepTime.value === 1 ? ' hour' : ' hours'
+                  ) : (
+                    recipe.prepTime.value === 1 ? ' min' : ' mins'
+                  )}
+                </p>
+              </div>
+              <div>
+                <p className="font-bold">Cook Time:</p>
+                <p className="font-light">{recipe.cookTime.value}
+                  {recipe.cookTime.unit === 'hours' ? (
+                    recipe.cookTime.value === 1 ? ' hour' : ' hours'
+                  ) : (
+                    recipe.cookTime.value === 1 ? ' min' : ' mins'
+                  )}
+                </p>
+              </div>
+              <div>
+                <p className="font-bold">Total Time:</p>
+                <p className="font-light">{totalTime}</p>
+              </div>
+            </div>
           )}
         </div>
 

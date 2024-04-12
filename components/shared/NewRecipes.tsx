@@ -4,7 +4,6 @@ import RecipeCard from "../cards/RecipeCard";
 
 async function NewRecipes() {
   const newRecipes = await fetchNewRecipes();
-  console.log(newRecipes)
 
   return (
     <section className="page-container flex flex-col gap-8">
