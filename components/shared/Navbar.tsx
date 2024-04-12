@@ -14,14 +14,19 @@ import { fetchUser } from "@/lib/actions/user.actions"
 function Navbar() {
   const currentPathname = usePathname();
   const { user } = useUser();
+  const [userIsAdmin, setUserIsAdmin] = useState(false)
   const [userImage, setUserImage] = useState('/assets/profile-icon-default.png')
 
+  
   useEffect(() => {
     const fetchUserData = async () => {
       if (user) {
         try {
           const userData = await fetchUser(user.id);
           setUserImage(userData.image);
+          if (userData.isAdmin) {
+            setUserIsAdmin(true);
+          }
         } catch (error: any) {
           throw new Error(`Failed to fetch user data: ${error.message}`)
         }
@@ -72,6 +77,13 @@ function Navbar() {
                           Add a recipe
                         </li>
                       </Link>
+                      {userIsAdmin && (
+                        <Link href="/admin-panel">
+                          <li className="p-4 hover:bg-accent-500">
+                            Admin Panel
+                          </li>
+                        </Link>
+                      )}
                       <SignOutButton>
                         <li className="p-4 hover:bg-accent-500">
                           Log out
