@@ -10,8 +10,6 @@ const Page = async ({ params }: { params: { id: string } }) => {
 
   const totalTime = getTotalTime(recipe.prepTime, recipe.cookTime);
 
-  console.log(recipe)
-
   return (
     <section className="page-container mt-5 mb-10">
       <div className="flex flex-col gap-8 max-w-screen-sm">
