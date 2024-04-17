@@ -17,13 +17,14 @@ function Navbar() {
   const [userIsAdmin, setUserIsAdmin] = useState(false)
   const [userImage, setUserImage] = useState('/assets/profile-icon-default.png')
 
-  
   useEffect(() => {
     const fetchUserData = async () => {
       if (user) {
         try {
           const userData = await fetchUser(user.id);
-          setUserImage(userData.image);
+          if (userData.image) {
+            setUserImage(userData.image);
+          }
           if (userData.isAdmin) {
             setUserIsAdmin(true);
           }
