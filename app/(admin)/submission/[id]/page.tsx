@@ -5,8 +5,6 @@ import React from 'react'
 const Page = async ({ params }: { params: { id: string } }) => {
   const recipe = await fetchRecipeById(params.id)
 
-  console.log(recipe.isApproved)
-
   return (
     <div className='page-container mx-20 my-10'>
       <div>

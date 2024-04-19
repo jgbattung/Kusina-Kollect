@@ -107,9 +107,7 @@ const AddRecipe = ({ user }: Props) => {
       directions: data.directions.map(direction => direction.value),
       tags: populatedTags,
     };
-
-    console.log(submissionData);
-
+  
     await saveRecipe({
       name: submissionData.name,
       description: submissionData.description,
