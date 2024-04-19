@@ -47,6 +47,7 @@ export async function approveRecipe(recipeId: string, path: string) {
     )
 
     revalidatePath(path);
+    revalidatePath('/admin-panel');
 
     if (!updatedRecipe) {
       throw new Error(`Recipe not found`)
