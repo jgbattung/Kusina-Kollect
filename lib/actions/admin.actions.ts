@@ -1,5 +1,6 @@
 "use server"
 
+import { revalidatePath } from "next/cache";
 import Recipe from "../models/recipe.model";
 import User from "../models/user.model";
 import { connectToDB } from "../mongoose"
@@ -32,5 +33,27 @@ export async function getAllUsers() {
     return users;
   } catch (error: any) {
     throw new Error(`Failed to fetch all users: ${error.message}`)
+  }
+}
+
+export async function approveRecipe(recipeId: string, path: string) {
+  connectToDB();
+
+  try {
+    const updatedRecipe = await Recipe.findByIdAndUpdate(
+      recipeId,
+      { isApproved: true },
+      { new: true }  
+    )
+
+    revalidatePath(path);
+
+    if (!updatedRecipe) {
+      throw new Error(`Recipe not found`)
+    }
+
+    return updatedRecipe;
+  } catch (error: any) {
+    throw new Error(`Failed to approve recipe: ${error.message}`)
   }
 }
