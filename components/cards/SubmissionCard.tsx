@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "../ui/carousel";
 import { Key } from "react";
 import { Button } from "../ui/button";
+import ApproveRecipe from "../buttons/ApproveRecipe";
 
 interface Props {
   id: string;
@@ -22,10 +23,11 @@ interface Props {
   isApproved: boolean;
 }
 
-
 const SubmissionCard = ({
   id, name, submittedBy, images, date, description, directions, ingredients, isApproved
 }: Props) => {
+  const recipePath=`/submission/${id}`
+
   return (
     <div className="bg-white max-w-5xl shadow-lg rounded-lg mx-24 my-12 px-16 py-10">
       <div className="flex justify-between items-center">
@@ -34,6 +36,9 @@ const SubmissionCard = ({
           <span className={`px-3 py-1 rounded-full text-xs font-semibold text-white ${isApproved ? 'bg-green-500' : 'bg-red-500'}`}>
             {isApproved ? 'Approved' : 'Not Approved'}
           </span>
+        </div>
+        <div>
+          <ApproveRecipe recipeId={id} path={recipePath}/>
         </div>
       </div>
       <p className="text-gray-500 text-sm mb-4">Submitted on {formatDate(date)}</p>
