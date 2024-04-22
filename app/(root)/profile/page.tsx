@@ -1,7 +1,7 @@
 import { ProfileProvider } from '@/app/context/ProfileContext';
 import ProfileSidebar from '@/components/profile/ProfileSidebar';
 import ProfileWindow from '@/components/profile/ProfileWindow';
-import { fetchUser } from '@/lib/actions/user.actions';
+import { fetchUser, getUserRecipes } from '@/lib/actions/user.actions';
 import { currentUser } from '@clerk/nextjs'
 import { redirect } from 'next/navigation';
 import React from 'react'
@@ -11,6 +11,8 @@ const page = async () => {
   if(!user) redirect("/sign-in");
 
   const userInfo = await fetchUser(user.id);
+
+  const userRecipes = await getUserRecipes(userInfo?._id);
 
   const userData = {
     id: user?.id,
@@ -29,7 +31,7 @@ const page = async () => {
           <ProfileSidebar user={userData} />
         </div>
         <div className='h-800 col-span-4 max-lg:col-span-6'>
-          <ProfileWindow user={userData} />
+          <ProfileWindow user={userData} recipes={userRecipes} />
         </div>
       </div>
 
