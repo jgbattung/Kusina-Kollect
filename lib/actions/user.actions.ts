@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import User from "../models/user.model";
 import { connectToDB } from "../mongoose"
+import Recipe from "../models/recipe.model";
 
 interface UpdateUserParams {
   userId: string;
@@ -59,3 +60,16 @@ export async function fetchUser(userId: string) {
     throw new Error(`Failed to fetch user: ${error.message}`);
   }
 };
+
+export async function getUserRecipes(userId: string) {
+  connectToDB();
+
+  try {
+    const userRecipes = await Recipe.find({ submittedBy: userId }).exec()
+
+    return userRecipes;
+    
+  } catch (error: any) {
+    throw new Error(`Failed to fetch user recipes: ${error.message}`)
+  }
+}

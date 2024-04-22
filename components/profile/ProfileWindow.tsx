@@ -6,19 +6,34 @@ import AccountInfo from '../forms/AccountInfo';
 import SavedItems from './SavedItems';
 import MyRecipes from './MyRecipes';
 
-interface Props {
-  user: {
-    id: string,
-    objectId: string,
-    username: string,
-    name: string,
-    image: string,
-    savedRecipes: [],
-    collections: [],
-  }
+interface Recipe {
+  _id: string;
+  name: string;
+  description: string;
+  images: string[];
+  ingredients: string[];
+  directions: string[];
+  tags: string[];
+  prepTime: { value: number, unit: string };
+  cookTime: { value: number, unit: string };
+  createdAt: Date;
+  isApproved: boolean;
 }
 
-function ProfileWindow({ user }: Props) {
+interface Props {
+  user: {
+    id: string;
+    objectId: string
+    username: string
+    name: string;
+    image: string;
+    savedRecipes: [];
+    collections: [];
+  },
+  recipes: Recipe[];
+}
+
+function ProfileWindow({ user, recipes }: Props) {
   const {selectedTab} = useContext(ProfileContext);
 
   let content;
@@ -30,7 +45,7 @@ function ProfileWindow({ user }: Props) {
         content = <SavedItems user={user} />
         break;
       case 'My Recipes':
-        content = <MyRecipes user={user} />
+        content = <MyRecipes user={user} recipes={recipes} />
         break;
       default:
         content = <AccountInfo user={user} />
