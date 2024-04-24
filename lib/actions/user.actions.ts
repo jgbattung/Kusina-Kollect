@@ -72,4 +72,40 @@ export async function getUserRecipes(userId: string) {
   } catch (error: any) {
     throw new Error(`Failed to fetch user recipes: ${error.message}`)
   }
+};
+
+export async function addToSavedRecipes(userId:string, recipeId: string, path: string) {
+  connectToDB();
+
+  try {
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { $addToSet: { savedRecipes: recipeId } },
+      { new: true },
+    )
+
+    revalidatePath(path);
+    return updatedUser;
+  } catch (error: any) {
+    throw new Error(`Failed to add to favorites: ${error.message}`)
+  }
+};
+
+export async function fetchUserSavedRecipes(userId: string) {
+  connectToDB();
+
+  try {
+    const user = User.findById(userId)
+      .select('savedRecipes')
+      .populate({
+        path: 'savedRecipes',
+        model: Recipe,
+        select: ' _id '
+      })
+      .exec();
+
+    return user;
+  } catch (error:any) {
+    throw new Error(`Failed to fetch user's saved recipes: ${error.message}`);
+  }
 }
