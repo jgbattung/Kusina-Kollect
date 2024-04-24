@@ -1,21 +1,30 @@
 import AddToSaved from "@/components/buttons/AddToSaved"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
 import { fetchRecipeById } from "@/lib/actions/recipe.actions"
-import { fetchUser } from "@/lib/actions/user.actions"
+import { fetchUser, fetchUserSavedRecipes } from "@/lib/actions/user.actions"
 import { formatDate, getTotalTime } from "@/lib/utils"
 import { currentUser } from "@clerk/nextjs"
 import Image from "next/image"
 import { Key } from "react"
+import { ObjectId } from "mongoose"
+
+interface Recipe {
+  _id: ObjectId;
+}
 
 const Page = async ({ params }: { params: { id: string } }) => {
 
   const user = await currentUser();
   let userInfo;
   let userId;
+  let isRecipeSaved;
   
   if (user) {
     userInfo = await fetchUser(user.id);
     userId = userInfo._id;
+    const loggedUser = await fetchUserSavedRecipes(userId);
+    const savedRecipeIds = loggedUser.savedRecipes.map((recipe: Recipe) => recipe._id.toString());
+    isRecipeSaved = savedRecipeIds.includes(params.id);
   }
   
   const recipe = await fetchRecipeById(params.id)
@@ -31,7 +40,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
           <div className="flex items-center justify-between">
             <h1 className="heading-bold max-md:text-3xl">{recipe.name}</h1>
             <div className={!user ? 'hidden' : 'visible'}>
-              <AddToSaved userId={userId} recipeId={params.id} path={recipePath} />
+              <AddToSaved userId={userId} recipeId={params.id} path={recipePath} isAlreadySaved={isRecipeSaved} />
             </div>
           </div>
           <p className="font-light">{recipe.description}</p>

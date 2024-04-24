@@ -1,6 +1,6 @@
 "use client"
 
-import { addToSavedRecipes } from "@/lib/actions/user.actions";
+import { addToSavedRecipes, fetchUserSavedRecipes } from "@/lib/actions/user.actions";
 import { Button } from "../ui/button";
 import { useLoadingStore } from "@/lib/store";
 
@@ -8,9 +8,10 @@ interface Props {
   userId: string;
   recipeId: string;
   path: string;
+  isAlreadySaved: boolean;
 }
 
-const AddToSaved = ({ userId, recipeId, path }: Props) => {
+const AddToSaved = ({ userId, recipeId, path, isAlreadySaved }: Props) => {
   const {isLoading, setIsLoading} = useLoadingStore();
 
   const handleSaveRecipe =async (e: React.MouseEvent) => {
@@ -32,7 +33,7 @@ const AddToSaved = ({ userId, recipeId, path }: Props) => {
         className="bg-secondary-500 text-white font-semibold rounded-xl hover:bg-primary-500 transition-colors"
         disabled={isLoading}
       >
-        {isLoading ? 'Saving Recipe' : 'Save Recipe'}
+        {isLoading ? 'Saving Recipe' : (isAlreadySaved ? `Saved ❤` : 'Save Recipe')}
       </Button>
     </div>
   )
