@@ -89,4 +89,23 @@ export async function addToSavedRecipes(userId:string, recipeId: string, path: s
   } catch (error: any) {
     throw new Error(`Failed to add to favorites: ${error.message}`)
   }
+};
+
+export async function fetchUserSavedRecipes(userId: string) {
+  connectToDB();
+
+  try {
+    const user = User.findById(userId)
+      .select('savedRecipes')
+      .populate({
+        path: 'savedRecipes',
+        model: Recipe,
+        select: ' _id '
+      })
+      .exec();
+
+    return user;
+  } catch (error:any) {
+    throw new Error(`Failed to fetch user's saved recipes: ${error.message}`);
+  }
 }
