@@ -76,3 +76,19 @@ export async function fetchRecipeById(id: string) {
     throw new Error(`Failed to fetch recipe: ${error.message}`)
   } 
 }
+
+export async function getRecipesByMealType(mealType: string) {
+  connectToDB();
+
+  try {
+    const recipes = await Recipe.find({ 
+      tags: { $in: [mealType] } 
+    })
+      .sort({ createdAt: 'desc' })
+      .select(' _id name images ')
+
+    return recipes;
+  } catch (error: any) {
+    throw new Error(`Failed to get recipes: ${error}`)
+  }
+}
