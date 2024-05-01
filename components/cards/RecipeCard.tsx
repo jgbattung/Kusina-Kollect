@@ -12,7 +12,7 @@ const RecipeCard = ({ id, name, images, category }: Props) => {
   return (
     <article>
       <Link href={`/recipe/${id}`} className="group flex flex-col gap-3">
-        <div className="relative">
+        <div className="relative max-w-80 max-md:min-w-128">
           {images.length > 0 ? (
             <Image 
               src={images[0]}
