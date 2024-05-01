@@ -87,7 +87,6 @@ export async function getRecipesByMealType(mealType: string) {
       .sort({ createdAt: 'desc' })
       .select(' _id name images ')
 
-    console.log('MMRECIPE', recipes)
     return recipes;
   } catch (error: any) {
     throw new Error(`Failed to get recipes: ${error}`)
