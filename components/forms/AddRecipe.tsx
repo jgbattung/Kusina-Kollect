@@ -97,9 +97,7 @@ const AddRecipe = ({ user }: Props) => {
       }
     }
 
-    const ingredientTags = [...new Set(data.ingredients.map(ingredient => ingredient.value.toLowerCase()))];
-
-    const populatedTags = data.tags?.length > 0 ? [...new Set([...data.tags, ...ingredientTags])] :  ingredientTags;
+    const populatedTags = data.tags?.length > 0 ? [...new Set([...data.tags])] :  [''];
     
     const submissionData = {
       ...data,
