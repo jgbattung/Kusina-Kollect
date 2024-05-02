@@ -44,17 +44,6 @@ const recipeSchema = new mongoose.Schema({
   }
 });
 
-recipeSchema.pre('save', function (next) {
-  const recipe = this;
-  if (!Array.isArray(recipe.tags)) {
-    recipe.tags = [];
-  }
-  const ingredientTags = recipe.ingredients.map(ingredient => ingredient.toLowerCase());
-  recipe.tags = Array.from(new Set([...recipe.tags, ...ingredientTags]));
-  next();
-});
-
-
 const Recipe = mongoose.models.Recipe || mongoose.model('Recipe', recipeSchema);
 
 export default Recipe;
