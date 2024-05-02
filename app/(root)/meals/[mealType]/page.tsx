@@ -20,8 +20,6 @@ const Page = () => {
   const currentMealType = mealLinks.find(meal => meal.path.includes(pathname as string));
   const [recipes, setRecipes] = useState<Recipe[]>([]);
 
-  console.log(currentMealType?.name)
-
   useEffect(() => {
     const fetchRecipes = async () => {
       if (currentMealType) {
@@ -36,9 +34,6 @@ const Page = () => {
 
     fetchRecipes();
   }, [currentMealType])
-
-  console.log(recipes);
-
 
   const description = getMealDescription(currentMealType?.name)
 
