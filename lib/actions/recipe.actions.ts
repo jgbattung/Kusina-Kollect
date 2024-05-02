@@ -108,3 +108,20 @@ export async function getRecipesByCuisine(cuisine: string) {
     throw new Error(`Unable to get recipes: ${error}`);
   }
 }
+
+export async function getRecipesByIngredients(ingredient: string) {
+  connectToDB();
+
+  try {
+    const recipes = await Recipe.find({
+      ingredients: { $regex: new RegExp(ingredient, 'i') },
+      tags: { $in: ingredient },
+    })
+      .sort({ createdAt: 'desc' })
+      .select(' _id name images ')
+
+    return recipes;
+  } catch (error: any) {
+    throw new Error(`Failed to get recipes: ${error.message}`)
+  }
+}
