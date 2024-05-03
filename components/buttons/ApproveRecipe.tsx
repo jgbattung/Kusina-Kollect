@@ -2,6 +2,8 @@
 
 import { approveRecipe } from '@/lib/actions/admin.actions';
 import { Button } from '../ui/button'
+import { useLoadingStore } from '@/lib/store';
+import { setTimeout } from 'timers';
 
 interface Props {
   recipeId: string
@@ -10,11 +12,14 @@ interface Props {
 }
 
 const ApproveRecipe = ({ recipeId, path, isApproved }: Props) => {
+  const {isLoading, setIsLoading} = useLoadingStore();
   const handleClick = async (e: React.MouseEvent) => {
     e.preventDefault()
 
     try {
-      await approveRecipe(recipeId, path)
+      setIsLoading(true);
+      await approveRecipe(recipeId, path, isApproved);
+      setIsLoading(false);
     } catch (error: any) {
       throw new Error("Error approving recipe:", error)
     }
@@ -26,8 +31,16 @@ const ApproveRecipe = ({ recipeId, path, isApproved }: Props) => {
       <Button
         onClick={handleClick}
         className={`${isApproved ? 'bg-red-700 hover:bg-red-900' : 'bg-complementary-500 hover:bg-complementary-800'} rounded-full text-light-200 font-bold transition-all`}
+        disabled={isLoading}
       >
-        {isApproved ? 'Remove Approval' : 'Approved Recipe'}
+        {isLoading
+          ? isApproved
+            ? 'Removing Approval...'
+            : 'Approving Recipe...'
+          : isApproved
+            ? 'Remove Approval'
+            : 'Approve Recipe'
+        }
       </Button>
     </div>
   )
