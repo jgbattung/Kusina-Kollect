@@ -2,14 +2,14 @@
 
 import { approveRecipe } from '@/lib/actions/admin.actions';
 import { Button } from '../ui/button'
-import { revalidatePath } from 'next/cache';
 
 interface Props {
   recipeId: string
   path: string
+  isApproved: boolean;
 }
 
-const ApproveRecipe = ({ recipeId, path }: Props) => {
+const ApproveRecipe = ({ recipeId, path, isApproved }: Props) => {
   const handleClick = async (e: React.MouseEvent) => {
     e.preventDefault()
 
@@ -25,9 +25,9 @@ const ApproveRecipe = ({ recipeId, path }: Props) => {
     <div>
       <Button
         onClick={handleClick}
-        className='bg-complementary-500 rounded-full text-light-200 font-bold hover:bg-complementary-800 transition-all'
+        className={`${isApproved ? 'bg-red-700 hover:bg-red-900' : 'bg-complementary-500 hover:bg-complementary-800'} rounded-full text-light-200 font-bold transition-all`}
       >
-        Approve Recipe
+        {isApproved ? 'Remove Approval' : 'Approved Recipe'}
       </Button>
     </div>
   )

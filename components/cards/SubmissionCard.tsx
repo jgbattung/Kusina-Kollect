@@ -38,7 +38,7 @@ const SubmissionCard = ({
           </span>
         </div>
         <div>
-          <ApproveRecipe recipeId={id} path={recipePath}/>
+          <ApproveRecipe recipeId={id} path={recipePath} isApproved={isApproved} />
         </div>
       </div>
       <p className="text-gray-500 text-sm mb-4">Submitted on {formatDate(date)}</p>
