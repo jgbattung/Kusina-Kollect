@@ -82,7 +82,8 @@ export async function getRecipesByMealType(mealType: string) {
 
   try {
     const recipes = await Recipe.find({ 
-      tags: { $in: [mealType] } 
+      tags: { $in: [mealType] },
+      isApproved: true 
     })
       .sort({ createdAt: 'desc' })
       .select(' _id name images ')
@@ -98,7 +99,8 @@ export async function getRecipesByCuisine(cuisine: string) {
 
   try {
     const recipes = await Recipe.find({
-      tags: { $in: [cuisine] }
+      tags: { $in: [cuisine] },
+      isApproved: true 
     })
       .sort({ createdAt: 'desc' })
       .select(' _id name images ')
@@ -116,6 +118,7 @@ export async function getRecipesByIngredients(ingredient: string) {
     const recipes = await Recipe.find({
       ingredients: { $regex: new RegExp(ingredient, 'i') },
       tags: { $in: ingredient },
+      isApproved: true 
     })
       .sort({ createdAt: 'desc' })
       .select(' _id name images ')
