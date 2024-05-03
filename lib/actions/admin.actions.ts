@@ -36,13 +36,13 @@ export async function getAllUsers() {
   }
 }
 
-export async function approveRecipe(recipeId: string, path: string) {
+export async function approveRecipe(recipeId: string, path: string, isApproved: boolean) {
   connectToDB();
 
   try {
     const updatedRecipe = await Recipe.findByIdAndUpdate(
       recipeId,
-      { isApproved: true },
+      { isApproved: !isApproved },
       { new: true }  
     )
 
