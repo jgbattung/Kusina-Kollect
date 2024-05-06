@@ -32,7 +32,7 @@ const AdminPanel  = async () => {
 
 
   return (
-    <div className='page-container my-10 mx-20'>
+    <div className='page-container my-5 mx-20'>
       <h1 className='heading-bold'>Administration</h1>
       <div className='w-full'>
         <Tabs defaultValue='recipes' className='w-full'>
