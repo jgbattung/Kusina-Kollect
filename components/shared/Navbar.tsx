@@ -10,12 +10,14 @@ import { NavigationMenuTrigger } from "@radix-ui/react-navigation-menu"
 import { SignOutButton, SignedIn, useUser } from "@clerk/nextjs"
 import { useEffect, useState } from "react"
 import { fetchUser } from "@/lib/actions/user.actions"
+import { useLoadingStore } from "@/lib/store"
 
 function Navbar() {
   const currentPathname = usePathname();
   const { user } = useUser();
   const [userIsAdmin, setUserIsAdmin] = useState(false)
   const [userImage, setUserImage] = useState('/assets/profile-icon-default.png')
+  const { setIsLoading } = useLoadingStore();
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -69,24 +71,24 @@ function Navbar() {
                   <NavigationMenuLink asChild>
                     <ul className="min-w-52 bg-white text-sm font-medium ">
                       <Link href="/profile">
-                        <li className="p-4 hover:bg-accent-500">
+                        <li className="p-4 hover:bg-accent-500" onClick={() => setIsLoading(true)}>
                           My Profile
                         </li>
                       </Link>
                       <Link href="/add-recipe">
-                        <li className="p-4 hover:bg-accent-500">
+                        <li className="p-4 hover:bg-accent-500" onClick={() => setIsLoading(true)}>
                           Add a recipe
                         </li>
                       </Link>
                       {userIsAdmin && (
                         <Link href="/admin-panel">
-                          <li className="p-4 hover:bg-accent-500">
+                          <li className="p-4 hover:bg-accent-500" onClick={() => setIsLoading(true)}>
                             Admin Panel
                           </li>
                         </Link>
                       )}
                       <SignOutButton>
-                        <li className="p-4 hover:bg-accent-500">
+                        <li className="p-4 hover:bg-accent-500" onClick={() => setIsLoading(true)}>
                           Log out
                         </li>
                       </SignOutButton>
@@ -115,7 +117,7 @@ function Navbar() {
           </ul>
         </div>
         <div>
-          <Link href='/add-recipe'><span className="nav-links text-primary-800 underline-custom">SUBMIT A RECIPE</span></Link>
+          <Link onClick={() => setIsLoading(true)} href='/add-recipe'><span className="nav-links text-primary-800 underline-custom">SUBMIT A RECIPE</span></Link>
         </div>
       </nav>
     </header>
