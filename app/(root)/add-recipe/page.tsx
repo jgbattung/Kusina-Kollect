@@ -1,4 +1,5 @@
 import AddRecipe from '@/components/forms/AddRecipe'
+import PageWrapper from '@/components/utils/PageWrapper';
 import { fetchUser } from '@/lib/actions/user.actions';
 import { currentUser } from '@clerk/nextjs'
 import { redirect } from 'next/navigation';
@@ -19,9 +20,11 @@ const page = async () => {
   }
 
   return (
-    <div className='page-container'>
-      <AddRecipe user={userData} />
-    </div>
+    <PageWrapper>
+      <div className='page-container'>
+        <AddRecipe user={userData} />
+      </div>
+    </PageWrapper>
   )
 }
 
