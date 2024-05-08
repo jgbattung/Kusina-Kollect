@@ -1,4 +1,6 @@
 import NewRecipes from "@/components/shared/NewRecipes";
+import RecipeOfTheDay from "@/components/shared/RecipeOfTheDay";
+import { getRecipeOfTheDay } from "@/lib/actions/recipe.actions";
 import { doesUserExist, updateUser } from "@/lib/actions/user.actions";
 import { currentUser } from "@clerk/nextjs";
 
@@ -23,8 +25,11 @@ export default async function Home() {
     }
   }
 
+  const recipeOfTheDay = await getRecipeOfTheDay();
+
   return (
     <div className="page-container">
+      <RecipeOfTheDay recipe={recipeOfTheDay} />
       <NewRecipes />
     </div>
   );
