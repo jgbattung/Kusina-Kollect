@@ -22,7 +22,7 @@ const FeatureRecipeCard = ({ id, name, images, description, submittedBy, userIma
               alt={`an image of ${name}`}
               width={640}
               height={480}
-              className='object-cover max-h-120 max-w-160 min-w-160 max-md:max-h-115 max-md:max-w-130 max-sm:max-h-80 max-sm:max-w-105 max-[490px]:max-w-80'
+              className='object-cover max-h-120 max-w-160 min-w-160 max-md:max-h-115 max-md:max-w-130 max-md:min-w-130 max-sm:max-h-80 max-sm:max-w-105 max-sm:min-w-105 max-[490px]:max-w-80 max-[490px]:min-w-80'
             />
           ) : (
             <Image 
@@ -45,6 +45,9 @@ const FeatureRecipeCard = ({ id, name, images, description, submittedBy, userIma
               className='object-fit rounded-full'
             />
           </div>
+        </div>
+        <div className='max-w-160 max-md:max-w-130 max-sm:max-w-105 max-[490px]:max-w-80'>
+          <p className='font-light text-sm max-md:truncate'>{description}</p>
         </div>
       </Link>
     </article>
