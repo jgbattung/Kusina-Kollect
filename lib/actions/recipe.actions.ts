@@ -160,6 +160,7 @@ export async function getRecipeOfTheDay() {
           _id: 1,
           name: 1,
           images: 1,
+          description: 1,
           submittedBy: {
             _id: 1,
             image: 1,
