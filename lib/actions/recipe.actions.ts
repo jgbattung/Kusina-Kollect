@@ -3,6 +3,7 @@
 import Recipe from "../models/recipe.model";
 import User from "../models/user.model";
 import { connectToDB } from "../mongoose";
+import NodeCache from 'node-cache'
 
 interface SaveRecipeParams {
   name: string;
@@ -126,5 +127,58 @@ export async function getRecipesByIngredients(ingredient: string) {
     return recipes;
   } catch (error: any) {
     throw new Error(`Failed to get recipes: ${error.message}`)
+  }
+}
+
+const recipeOfTheDayCache = new NodeCache({ stdTTL: 60 * 60 * 24 })
+
+export async function getRecipeOfTheDay() {
+
+  const cachedRecipe = recipeOfTheDayCache.get('recipeOfTheDay');
+  if (cachedRecipe) {
+    return cachedRecipe
+  };
+
+  connectToDB();
+
+  try {
+    const recipe = await Recipe.aggregate([
+      { $sample: { size: 1 } },
+      {
+        $lookup: {
+          from: User.collection.name,
+          localField: 'submittedBy',
+          foreignField: '_id',
+          as: 'submittedBy',
+        },
+      },
+      {
+        $unwind: '$submittedBy'
+      },
+      {
+        $project: {
+          _id: 1,
+          name: 1,
+          images: 1,
+          description: 1,
+          submittedBy: {
+            _id: 1,
+            image: 1,
+            name: 1,
+            username: 1,
+          },
+        },
+      },
+    ]);
+
+    if (recipe.length === 0) {
+      throw new Error('No recipes found')
+    }
+
+    recipeOfTheDayCache.set('recipeOfTheDay', recipe[0], 60 * 60 * 24);
+
+    return recipe[0];
+  } catch (error:any) {
+    throw new Error(`Failed to get recipe of the day: ${error.message}`)
   }
 }
