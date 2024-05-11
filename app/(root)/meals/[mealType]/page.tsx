@@ -46,7 +46,7 @@ const Page = () => {
             description={description}
             displayImage={currentMealType.image}
           />
-          <div className="grid grid-cols-3 gap-20 mt-10 max-lg:grid-cols-2 max-lg:gap-10 max-md:grid-cols-1">
+          <div className="grid grid-cols-3 gap-20 max-xl:grid-cols-2 max-lg:gap-10 max-md:grid-cols-1">
             {recipes.map((recipe: Recipe) => (
               <div key={recipe._id}>
                 <RecipeCard 

@@ -9,7 +9,7 @@ interface Props {
 function SectionHeader({ title, description, displayImage }: Props) {
   return (
     <div className="page-container">
-      <div className="relative -mx-12">
+      <div className="relative">
         <Image 
           src={displayImage}
           alt="filipino-food"
@@ -21,7 +21,7 @@ function SectionHeader({ title, description, displayImage }: Props) {
       </div>
       <div className="center mt-8">
         <h1 className="heading-bold">{title}</h1>
-        <p className="body-light pt-2">{description}</p>
+        <p className="body-light pt-2 max-md:text-center">{description}</p>
       </div>
     </div>
   )

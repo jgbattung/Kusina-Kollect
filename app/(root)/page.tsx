@@ -28,7 +28,7 @@ export default async function Home() {
   const recipeOfTheDay = await getRecipeOfTheDay();
 
   return (
-    <div className="page-container -mx-12">
+    <div className="page-container">
       <RecipeOfTheDay recipe={recipeOfTheDay} />
       <NewRecipes />
     </div>
