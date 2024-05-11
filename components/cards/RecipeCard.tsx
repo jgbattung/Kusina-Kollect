@@ -25,7 +25,7 @@ const RecipeCard = ({ id, name, images, category }: Props) => {
           />
         ) : (
           <Image 
-            src="assets/recipe-image.png"
+            src="/assets/recipe-image.png"
             alt={`placeholder image for ${name}`}
             width={320}
             height={240}
