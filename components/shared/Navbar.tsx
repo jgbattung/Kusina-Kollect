@@ -52,7 +52,7 @@ function Navbar() {
         </Link>
         <SearchBar />
         <SignedIn>
-          <NavigationMenu>
+          <NavigationMenu className="max-sm:hidden">
             <NavigationMenuList>
               <NavigationMenuItem>
                 <NavigationMenuTrigger>
