@@ -21,7 +21,7 @@ function RecipeOfTheDay({ recipe }: RecipeOfTheDayProps) {
   console.log(recipe)
 
   return (
-    <section className='w-full bg-white py-12 flex flex-col items-center justify-center gap-7 px-5 max-sm:py-7'>
+    <section className='w-full page-container gap-7 px-5 max-sm:py-7'>
       <p className='font-extrabold text-3xl max-sm:font-bold max-sm:text-2xl'>Recipe of the Day</p>
       {recipe && (
           <FeatureRecipeCard 
