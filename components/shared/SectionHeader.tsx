@@ -9,7 +9,7 @@ interface Props {
 function SectionHeader({ title, description, displayImage }: Props) {
   return (
     <div className="page-container">
-      <div className="relative -mx-12">
+      <div className="relative">
         <Image 
           src={displayImage}
           alt="filipino-food"
