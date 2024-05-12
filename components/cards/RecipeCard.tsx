@@ -21,14 +21,15 @@ const RecipeCard = ({ id, name, images, category }: Props) => {
             alt={`an image of ${name}`}
             width={520}
             height={320}
-            className="px-2 object-cover max-h-72 min-h-72 max-w-90 min-w-90 max-xl:min-w-115 max-xl:min-h-80 max-lg:min-w-105 max-lg:min-h-60 max-[910px]:min-w-75 max-md:min-w-130 max-md:min-h-75 max-sm:min-w-105 max-sm:min-h-70 max-[490px]:min-w-60 max-[490px]:min-h-60"
+            className="px-2 object-cover max-h-72 min-h-72 max-w-90 min-w-90 max-xl:min-w-120 max-xl:min-h-80 max-lg:min-w-105 max-lg:min-h-60 max-[910px]:min-w-75 max-md:min-w-130 max-md:min-h-75 max-sm:min-w-105 max-sm:min-h-70 max-[490px]:min-w-60 max-[490px]:min-h-60"
           />
         ) : (
           <Image 
             src="/assets/recipe-image.png"
             alt={`placeholder image for ${name}`}
-            width={320}
-            height={240}
+            width={520}
+            height={320}
+            className="px-2 object-cover max-h-72 min-h-72 max-w-90 min-w-90 max-xl:min-w-120 max-xl:min-h-80 max-lg:min-w-105 max-lg:min-h-60 max-[910px]:min-w-75 max-md:min-w-130 max-md:min-h-75 max-sm:min-w-105 max-sm:min-h-70 max-[490px]:min-w-60 max-[490px]:min-h-60"
           />
         )}
         <div className="text-left px-3">
