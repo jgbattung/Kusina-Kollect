@@ -18,7 +18,6 @@ interface RecipeOfTheDayProps {
 }
 
 function RecipeOfTheDay({ recipe }: RecipeOfTheDayProps) {
-  console.log(recipe)
 
   return (
     <section className='w-full page-container gap-7 px-5 max-sm:py-7'>
