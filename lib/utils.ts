@@ -30,3 +30,17 @@ export function getTotalTime(prep: Params, cook: Params) {
   const minutes = totalMinutes % 60;
   return `${hours > 0 ? `${hours} ${hours === 1 ? 'hour' : 'hours'}` : ''} ${minutes > 0 ? `${minutes} ${minutes === 1 ? 'min' : 'mins'}` : ''}`.trim();
 }
+
+export interface RecipeOfTheDayProps {
+  _id: string;
+  name: string;
+  images: string[];
+  submittedBy: {
+    _id: string;
+    image: string;
+    name: string;
+    username: string;
+  };
+  description: string;
+  category?: string;
+}

@@ -182,3 +182,49 @@ export async function getRecipeOfTheDay() {
     throw new Error(`Failed to get recipe of the day: ${error.message}`)
   }
 }
+
+export async function getFeaturedRecipe(tags: string[]) {
+  connectToDB();
+  
+  try {
+    const recipe = await Recipe.aggregate([
+      {
+        $match: {
+          tags: { $in: tags },
+        },
+      },
+      {
+        $sample: { size: 1 },
+      },
+      {
+        $lookup: {
+          from: User.collection.name,
+          localField: 'submittedBy',
+          foreignField: '_id',
+          as: 'submittedBy',
+        },
+      },
+      {
+        $unwind: '$submittedBy'
+      },
+      {
+        $project: {
+          _id: 1,
+          name: 1,
+          images: 1,
+          description: 1,
+          submittedBy: {
+            name: 1,
+            username: 1,
+            image: 1,
+          },
+          tags: 1,
+        },
+      },
+    ]).exec();
+
+    return recipe[0];
+  } catch (error: any) {
+    throw new Error(`Failed to get featured recipe: ${error.message}`)
+  }
+}
