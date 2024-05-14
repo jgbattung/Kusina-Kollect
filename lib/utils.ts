@@ -41,5 +41,6 @@ export interface RecipeOfTheDayProps {
     name: string;
     username: string;
   };
-  description: string
+  description: string;
+  category?: string;
 }
