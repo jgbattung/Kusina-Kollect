@@ -218,11 +218,11 @@ export async function getFeaturedRecipe(tags: string[]) {
             username: 1,
             image: 1,
           },
+          tags: 1,
         },
       },
     ]).exec();
 
-    console.log(recipe[0])
     return recipe[0];
   } catch (error: any) {
     throw new Error(`Failed to get featured recipe: ${error.message}`)
