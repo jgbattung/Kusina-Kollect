@@ -16,8 +16,13 @@ const Page = () => {
     const fetchFeatureRecipe = async () => {
       try {
         const recipe = await getFeaturedRecipe(pageLinks);
-        setRecipe(recipe);
-        console.log('ROD: ', recipe)
+        
+        const matchingCetegory = pageLinks.find((category) => recipe.tags.includes(category));
+
+        setRecipe({
+          ...recipe,
+          category: matchingCetegory,
+        });
       } catch (error) {
         throw new Error(`Cannot fetch featured recipe: ${error}`);
       }
@@ -48,7 +53,8 @@ const Page = () => {
             images={recipe.images}
             description={recipe.description}
             submittedBy={recipe.submittedBy.name || recipe.submittedBy.username}
-            userImage={recipe.submittedBy.image}  
+            userImage={recipe.submittedBy.image} 
+            category={recipe.category} 
           />
         </div>
       )}
