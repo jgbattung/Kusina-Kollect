@@ -1,5 +1,6 @@
 import NewRecipes from "@/components/shared/NewRecipes";
 import RecipeOfTheDay from "@/components/shared/RecipeOfTheDay";
+import SearchDiv from "@/components/shared/SearchDiv";
 import { getRecipeOfTheDay } from "@/lib/actions/recipe.actions";
 import { doesUserExist, updateUser } from "@/lib/actions/user.actions";
 import { currentUser } from "@clerk/nextjs";
@@ -31,6 +32,7 @@ export default async function Home() {
     <div className="page-container">
       <RecipeOfTheDay recipe={recipeOfTheDay} />
       <NewRecipes />
+      <SearchDiv /> 
     </div>
   );
 }

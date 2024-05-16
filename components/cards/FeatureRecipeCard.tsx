@@ -36,7 +36,9 @@ const FeatureRecipeCard = ({ id, name, images, description, submittedBy, userIma
           )}
         </div>
         <div className='flex flex-col gap-1 mt-1'>
-          <p className='font-extrabold text-sm text-primary-800'>{`${category?.toUpperCase()} RECIPES`}</p>
+          {category && (
+            <p className='font-extrabold text-sm text-primary-800'>{`${category.toUpperCase()} RECIPES`}</p>
+          )}
           <div>
             <p className='font-extrabold text-xl max-sm:font-bold max-sm:text-lg group-hover:underline-offset-2 group-hover:underline underline-custom'>{name}</p>
             <div className='flex items-center justify-start gap-1'>
