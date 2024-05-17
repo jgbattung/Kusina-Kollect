@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import SearchBar from "./SearchBar"
+import SearchBar from "../forms/SearchBar"
 import { navbarRoutes } from "@/app/constants"
 import { usePathname } from "next/navigation"
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList } from "../ui/navigation-menu"
