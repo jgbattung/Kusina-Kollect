@@ -1,5 +1,4 @@
 import { fetchNewRecipes } from "@/lib/actions/recipe.actions"
-import Link from "next/link";
 import RecipeCard from "../cards/RecipeCard";
 
 async function NewRecipes() {

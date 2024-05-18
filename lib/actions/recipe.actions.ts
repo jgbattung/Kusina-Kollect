@@ -228,3 +228,22 @@ export async function getFeaturedRecipe(tags: string[]) {
     throw new Error(`Failed to get featured recipe: ${error.message}`)
   }
 }
+
+export async function getRecipesBySearch(searchString: string) {
+  connectToDB();
+
+  try {
+    const recipes = Recipe.find({
+      $or: [
+        { name: { $regex: searchString, $options: 'i' } },
+        { ingredients: { $regex: searchString, $options: 'i' } },
+      ],
+    })
+      .select(' _id name images ')
+      .exec();
+
+    return recipes;  
+  } catch (error: any) {
+    throw new Error(`Failed to get search results`);
+  }
+}
