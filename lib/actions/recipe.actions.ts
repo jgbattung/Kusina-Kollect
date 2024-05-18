@@ -236,7 +236,6 @@ export async function getRecipesBySearch(searchString: string) {
     const recipes = Recipe.find({
       $or: [
         { name: { $regex: searchString, $options: 'i' } },
-        { description: { $regex: searchString, $options: 'i' } },
         { ingredients: { $regex: searchString, $options: 'i' } },
       ],
     })
