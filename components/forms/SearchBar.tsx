@@ -4,22 +4,20 @@ import * as z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { SearchValidation } from '@/lib/validations/search'
-import React from 'react'
+import React, { useState } from 'react'
 import { Form, FormField, FormItem } from '../ui/form'
 import { Input } from '../ui/input'
-import { getRecipesBySearch } from '@/lib/actions/recipe.actions'
-
-
+import { useRouter } from 'next/navigation'
   
 const SearchBar = () => {
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof SearchValidation>>({
     resolver: zodResolver(SearchValidation),
   });
 
   const onSubmit = async (values: z.infer<typeof SearchValidation>) => {
-    console.log('VALUES:', values.searchString)
-    const searchResults = await getRecipesBySearch(values.searchString);
-    console.log(searchResults);
+    router.push(`/search?q=${encodeURIComponent(values.searchString)}`);
   };
 
   return (
@@ -33,7 +31,7 @@ const SearchBar = () => {
               <Input 
                 type='text' 
                 placeholder='Search here...' 
-                className='p-3 focus:outline-none' 
+                className='p-3 focus:outline-none'
                 {...field}
               />
             </FormItem>
