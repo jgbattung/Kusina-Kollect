@@ -41,14 +41,23 @@ function Navbar() {
 
   return (
     <header className="top-0 left-0 right-0 flex flex-col border-b border-gray-200 py-5 shadow-sm max-md:py-2">
-      <div className="flex flex-1 items-center justify-evenly max-md:justify-between max-md:mx-6">
+      <div className="flex flex-1 items-center justify-evenly max-md:justify-between max-md:mx-6 gap-2">
+        <div className="md:hidden">
+          <svg width="19px" height="19px" viewBox="0 0 12 12" enable-background="new 0 0 12 12" id="Слой_1" version="1.1" xmlns="http://www.w3.org/2000/svg">
+            <g>
+              <rect fill="#333333" height="1" width="11" x="0.5" y="5.5"/>
+              <rect fill="#333333" height="1" width="11" x="0.5" y="2.5"/>
+              <rect fill="#333333" height="1" width="11" x="0.5" y="8.5"/>
+            </g>
+          </svg>
+        </div>
         <Link href="/">
           <Image 
             src="/assets/logo.png"
             alt="logo"
             width={300}
             height={300}
-            className="max-md:max-w-40 max-lg:max-w-70"
+            className="max-md:max-w-30 max-lg:max-w-70"
           />
         </Link>
         <div className="max-md:hidden w-1/3">
