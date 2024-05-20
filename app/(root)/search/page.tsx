@@ -41,18 +41,25 @@ const Page = () => {
         <p className='font-bold text-lg'>Search results for <span className='text-primary-800'>{query}</span></p>
         <SearchBar />
       </div>
-      <div className="grid grid-cols-3 gap-12 max-2xl:gap-8 max-xl:grid-cols-2 max-lg:gap-10 max-md:grid-cols-1">
-        {searchResults.length > 0 && searchResults.map((recipe) => (
-          <div key={recipe._id}>
-            <RecipeCard 
-              id={recipe._id}
-              name={recipe.name}
-              images={recipe.images}
-              category={query || undefined}
-            />
-          </div>
-        ))}
-      </div>
+      {searchResults.length > 0 ? (
+        <div className="grid grid-cols-3 gap-12 max-2xl:gap-8 max-xl:grid-cols-2 max-lg:gap-10 max-md:grid-cols-1">
+          {searchResults.map((recipe) => (
+            <div key={recipe._id}>
+              <RecipeCard 
+                id={recipe._id}
+                name={recipe.name}
+                images={recipe.images}
+                category={query || undefined}
+              />
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className='flex flex-col gap-3 items-center justify-center mx-6 text-center'>
+          <p className='font-bold text-3xl'>{"We couldn't find any results for "}<span className='text-primary-800'>{`${query}`}.</span></p>
+          <p>{"Try searching for a more general term or explore our recipe categories."}</p>
+        </div>
+      )}
     </div>
   )
 }
