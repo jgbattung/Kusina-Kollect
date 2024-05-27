@@ -10,7 +10,7 @@ import { NavigationMenuTrigger } from "@radix-ui/react-navigation-menu"
 import { SignOutButton, SignedIn, useUser } from "@clerk/nextjs"
 import { useEffect, useState } from "react"
 import { fetchUser } from "@/lib/actions/user.actions"
-import { useLoadingStore } from "@/lib/store"
+import { useLoadingStore, useSideNavbarStore } from "@/lib/store"
 
 function Navbar() {
   const currentPathname = usePathname();
@@ -18,6 +18,8 @@ function Navbar() {
   const [userIsAdmin, setUserIsAdmin] = useState(false)
   const [userImage, setUserImage] = useState('/assets/profile-icon-default.png')
   const { setIsLoading } = useLoadingStore();
+  const isSideNavbarOpen = useSideNavbarStore((state) => state.isSideNavbarOpen);
+  const toggleSideNavbar = useSideNavbarStore((state) => state.toggleSideNavbar); 
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -40,16 +42,26 @@ function Navbar() {
   }, [user]);
 
   return (
-    <header className="top-0 left-0 right-0 flex flex-col border-b border-gray-200 py-5 shadow-sm max-md:py-2">
+    <header className="top-0 left-0 sticky right-0 flex flex-col border-b border-gray-200 bg-white py-5 shadow-sm max-md:py-2">
       <div className="flex flex-1 items-center justify-evenly max-md:justify-between max-md:mx-6 gap-2">
         <div className="md:hidden">
-          <svg width="19px" height="19px" viewBox="0 0 12 12" enable-background="new 0 0 12 12" id="Слой_1" version="1.1" xmlns="http://www.w3.org/2000/svg">
-            <g>
-              <rect fill="#333333" height="1" width="11" x="0.5" y="5.5"/>
-              <rect fill="#333333" height="1" width="11" x="0.5" y="2.5"/>
-              <rect fill="#333333" height="1" width="11" x="0.5" y="8.5"/>
-            </g>
-          </svg>
+          <button onClick={toggleSideNavbar}>
+            <div>
+              {isSideNavbarOpen ? (
+                <svg width="19px" height="19px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M19 5L5 19M5.00001 5L19 19" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              ) : (
+                <svg width="19px" height="19px" viewBox="0 0 12 12" enable-background="new 0 0 12 12" id="Слой_1" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                  <g>
+                    <rect fill="#333333" height="1" width="11" x="0.5" y="5.5"/>
+                    <rect fill="#333333" height="1" width="11" x="0.5" y="2.5"/>
+                    <rect fill="#333333" height="1" width="11" x="0.5" y="8.5"/>
+                  </g>
+                </svg>
+              )}
+            </div>
+          </button>
         </div>
         <Link href="/">
           <Image 
@@ -57,7 +69,7 @@ function Navbar() {
             alt="logo"
             width={300}
             height={300}
-            className="max-md:max-w-30 max-lg:max-w-70"
+            className="max-sm:max-w-30 max-md:max-w-52 max-lg:max-w-70"
           />
         </Link>
         <div className="max-md:hidden w-1/3">
@@ -114,26 +126,30 @@ function Navbar() {
         {/* mobile */}
         <div className="md:hidden flex gap-2 items-center">
           <div>
-            <svg fill="#333333" height="12px" width="12px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 490.4 490.4">
-              <g>
-                <path d="M484.1,454.796l-110.5-110.6c29.8-36.3,47.6-82.8,47.6-133.4c0-116.3-94.3-210.6-210.6-210.6S0,94.496,0,210.796
-                  s94.3,210.6,210.6,210.6c50.8,0,97.4-18,133.8-48l110.5,110.5c12.9,11.8,25,4.2,29.2,0C492.5,475.596,492.5,463.096,484.1,454.796z
-                  M41.1,210.796c0-93.6,75.9-169.5,169.5-169.5s169.6,75.9,169.6,169.5s-75.9,169.5-169.5,169.5S41.1,304.396,41.1,210.796z"/>
-              </g>
-            </svg>
+            <button>
+              <svg fill="#333333" height="12px" width="12px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 490.4 490.4">
+                <g>
+                  <path d="M484.1,454.796l-110.5-110.6c29.8-36.3,47.6-82.8,47.6-133.4c0-116.3-94.3-210.6-210.6-210.6S0,94.496,0,210.796
+                    s94.3,210.6,210.6,210.6c50.8,0,97.4-18,133.8-48l110.5,110.5c12.9,11.8,25,4.2,29.2,0C492.5,475.596,492.5,463.096,484.1,454.796z
+                    M41.1,210.796c0-93.6,75.9-169.5,169.5-169.5s169.6,75.9,169.6,169.5s-75.9,169.5-169.5,169.5S41.1,304.396,41.1,210.796z"/>
+                </g>
+              </svg>
+            </button>
           </div>
           <p className="text-gray-400">|</p>
           <div>
             <SignedIn>
-              <div className="flex items-center gap-2">
-                <Image 
-                  src={userImage}
-                  alt="Profile icon"
-                  width={14}
-                  height={14}
-                />
-                <p className="font-light text-xs">My Account</p>
-              </div>
+              <button>
+                <div className="flex items-center gap-2">
+                  <Image 
+                    src={userImage}
+                    alt="Profile icon"
+                    width={14}
+                    height={14}
+                  />
+                  <p className="font-light text-xs">My Account</p>
+                </div>
+              </button>
             </SignedIn>
           </div>
         </div>
