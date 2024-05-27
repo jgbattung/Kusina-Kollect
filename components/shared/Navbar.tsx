@@ -42,8 +42,8 @@ function Navbar() {
   }, [user]);
 
   return (
-    <header className="top-0 left-0 sticky right-0 flex flex-col border-b border-gray-200 bg-white py-5 shadow-sm max-md:py-2">
-      <div className="flex flex-1 items-center justify-evenly max-md:justify-between max-md:mx-6 gap-2">
+    <header className="top-0 left-0 right-0 flex flex-col border-b border-gray-200 bg-white py-5 shadow-sm max-md:py-2">
+      <div className={`flex flex-1 items-center justify-evenly ${isSideNavbarOpen ? 'max-md:justify-start' : 'max-md:justify-between'} max-md:mx-6 gap-2`}>
         <div className="md:hidden">
           <button onClick={toggleSideNavbar}>
             <div>
@@ -52,7 +52,7 @@ function Navbar() {
                   <path d="M19 5L5 19M5.00001 5L19 19" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               ) : (
-                <svg width="19px" height="19px" viewBox="0 0 12 12" enable-background="new 0 0 12 12" id="Слой_1" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                <svg width="19px" height="19px" viewBox="0 0 12 12" enableBackground="new 0 0 12 12" id="Слой_1" version="1.1" xmlns="http://www.w3.org/2000/svg">
                   <g>
                     <rect fill="#333333" height="1" width="11" x="0.5" y="5.5"/>
                     <rect fill="#333333" height="1" width="11" x="0.5" y="2.5"/>
@@ -124,7 +124,7 @@ function Navbar() {
           </NavigationMenu>
         </SignedIn>
         {/* mobile */}
-        <div className="md:hidden flex gap-2 items-center">
+        <div className={`md:hidden flex gap-2 items-center ${isSideNavbarOpen && 'hidden'}`}>
           <div>
             <button>
               <svg fill="#333333" height="12px" width="12px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 490.4 490.4">
