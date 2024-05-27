@@ -13,4 +13,19 @@ const useLoadingStore = create<LoadingState & LoadingAction>()((set) => ({
   setIsLoading: (isLoading: boolean) => set(() => ({ isLoading })),
 }));
 
-export { useLoadingStore };
+// side navbar state
+
+type SideNavbarState = {
+  isSideNavbarOpen: boolean;
+}
+
+type SideNavbarAction = {
+  toggleSideNavbar: () => void;
+}
+
+const useSideNavbarStore = create<SideNavbarState & SideNavbarAction>((set) => ({
+  isSideNavbarOpen: false,
+  toggleSideNavbar: () => set((state) => ({ isSideNavbarOpen: !state.isSideNavbarOpen }))
+}))
+
+export { useLoadingStore, useSideNavbarStore };
