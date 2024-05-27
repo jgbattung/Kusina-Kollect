@@ -5,6 +5,7 @@ import Navbar from "../../components/shared/Navbar";
 import Footer from "../../components/shared/Footer";
 import { ClerkProvider } from "@clerk/nextjs";
 import LoadingScreen from "@/components/shared/LoadingScreen";
+import SideNavbar from "@/components/shared/SideNavbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,6 +24,7 @@ export default function RootLayout({
       <html lang="en">
         <body className={inter.className}>
           <Navbar />
+          <SideNavbar />
           <LoadingScreen />
           <main className="flex">
             <section className="w-full flex min-h-screen bg-light-200">

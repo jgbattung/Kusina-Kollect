@@ -34,10 +34,12 @@ const UserRecipeCard = ({
       <p className="truncate text-sm text-gray-600">{description}</p>
       <div className="flex justify-between gap-4">
         <div className="truncate flex flex-col gap-2">
-          <div className="flex flex-col text-sm font-light">
-            <p>{`Prep Time: ${prepTime.value} ${prepTime.unit}`}</p>
-            <p>{`Cook Time: ${cookTime.value} ${cookTime.unit}`}</p>
-          </div>
+          {prepTime && cookTime && (
+            <div className="flex flex-col text-sm font-light">
+              <p>{`Prep Time: ${prepTime.value} ${prepTime.unit}`}</p>
+              <p>{`Cook Time: ${cookTime.value} ${cookTime.unit}`}</p>
+            </div>
+          )}
           <p className="truncate text-xs text-gray-400">{tags.join(", ")}</p>
         </div>
         <div>
