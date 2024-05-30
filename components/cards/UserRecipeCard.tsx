@@ -44,7 +44,7 @@ const UserRecipeCard = ({
         </div>
         <div>
           <Image
-            src={image}
+            src={image || "/assets/recipe-image.png"}
             alt={`image of ${name}`}
             width={200}
             height={200}
