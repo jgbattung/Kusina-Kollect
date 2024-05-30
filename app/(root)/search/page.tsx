@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { getRecipesBySearch } from '@/lib/actions/recipe.actions';
-import Recipe from '@/lib/models/recipe.model';
 import RecipeCard from '@/components/cards/RecipeCard';
 import SearchBar from '@/components/forms/SearchBar';
 
@@ -17,6 +16,8 @@ const Page = () => {
   const searchParams = useSearchParams();
   const query = searchParams.get('q');
   const [searchResults, setSearchResults] = useState<RecipeProps[]>([]);
+
+  console.log(query)
 
   useEffect(() => {
     const fetchSearchResults = async () => {
@@ -38,7 +39,7 @@ const Page = () => {
   return (
     <div className='page-container w-full'>
       <div className='flex flex-col gap-3 mb-14 w-1/2 max-md:w-3/4'>
-        <p className='font-bold text-lg'>Search results for <span className='text-primary-800'>{query}</span></p>
+        <p className={`font-bold text-lg ${query === null && 'hidden'}`}>Search results for <span className='text-primary-800'>{query}</span></p>
         <SearchBar />
       </div>
       {searchResults.length > 0 ? (
@@ -53,6 +54,11 @@ const Page = () => {
               />
             </div>
           ))}
+        </div>
+      ) : query === null ? (
+        <div className='flex flex-col gap-3 items-center justify-center mx-6 text-center'>
+          <p className='font-bold text-3xl'>Discover recipes by searching for ingredients, dish names, or cuisines.</p>
+          <p>Enter a search term in the box below to find your favorite recipes or explore new ones.</p>
         </div>
       ) : (
         <div className='flex flex-col gap-3 items-center justify-center mx-6 text-center'>
