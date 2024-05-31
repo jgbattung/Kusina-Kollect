@@ -17,8 +17,6 @@ const Page = () => {
   const query = searchParams.get('q');
   const [searchResults, setSearchResults] = useState<RecipeProps[]>([]);
 
-  console.log(query)
-
   useEffect(() => {
     const fetchSearchResults = async () => {
       if (query) {
