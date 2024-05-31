@@ -125,7 +125,7 @@ const AddRecipe = ({ user }: Props) => {
 
       openModal(ActionStatus.SUCCESS, 'Recipe has been submitted successfully.');
     } catch (error) {
-      openModal(ActionStatus.FAIL, 'Failed to submite recipe. Please try again.');
+      openModal(ActionStatus.FAIL, 'Failed to submit recipe. Please try again.');
     }
     setIsLoading(false);
     router.push("/")
