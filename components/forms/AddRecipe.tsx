@@ -10,8 +10,10 @@ import { ChangeEvent, useState } from 'react'
 import { useUploadThing } from '@/lib/uploadthing'
 import Image from "next/image"
 import { saveRecipe } from '@/lib/actions/recipe.actions'
-import { useLoadingStore } from '@/lib/store'
+import { useActionModalStore, useLoadingStore } from '@/lib/store'
 import { useRouter } from 'next/navigation'
+import { ActionStatus } from '@/app/constants/actionModal'
+import { revalidatePath } from 'next/cache'
 
 
 interface Props {
@@ -40,6 +42,7 @@ const AddRecipe = ({ user }: Props) => {
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const { startUpload } = useUploadThing("imageUploader");
   const {isLoading, setIsLoading} = useLoadingStore();
+  const { openModal } = useActionModalStore();
 
   const { register, handleSubmit, formState: {errors}, control } = useForm<FormData>({
     resolver: zodResolver(RecipeValidation),
@@ -105,21 +108,27 @@ const AddRecipe = ({ user }: Props) => {
       directions: data.directions.map(direction => direction.value),
       tags: populatedTags,
     };
-  
-    await saveRecipe({
-      name: submissionData.name,
-      description: submissionData.description,
-      ingredients: submissionData.ingredients,
-      directions: submissionData.directions,
-      tags: submissionData.tags,
-      images: submissionData.images,
-      prepTime: submissionData.prepTime,
-      cookTime: submissionData.cookTime,
-      submittedBy: user.objectId,
-      isApproved: user.isAdmin || user.isContributor,
-    });
 
+    try {
+      await saveRecipe({
+        name: submissionData.name,
+        description: submissionData.description,
+        ingredients: submissionData.ingredients,
+        directions: submissionData.directions,
+        tags: submissionData.tags,
+        images: submissionData.images,
+        prepTime: submissionData.prepTime,
+        cookTime: submissionData.cookTime,
+        submittedBy: user.objectId,
+        isApproved: user.isAdmin || user.isContributor,
+      });
+
+      openModal(ActionStatus.SUCCESS, 'Recipe has been submitted successfully.');
+    } catch (error) {
+      openModal(ActionStatus.FAIL, 'Failed to submite recipe. Please try again.');
+    }
     setIsLoading(false);
+    revalidatePath("/");
     router.push("/")
   }
 
