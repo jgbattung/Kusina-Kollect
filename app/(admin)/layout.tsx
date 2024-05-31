@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "../globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import AdminNavbar from "@/components/shared/AdminNavbar";
+import ActionModalWrapper from "@/components/shared/ActionModalWrapper";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,6 +29,7 @@ export default function RootLayout({
               </div>
             </section>
           </main>
+          <ActionModalWrapper />
         </body>
       </html>
     </ClerkProvider>

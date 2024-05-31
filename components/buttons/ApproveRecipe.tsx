@@ -2,8 +2,8 @@
 
 import { approveRecipe } from '@/lib/actions/admin.actions';
 import { Button } from '../ui/button'
-import { useLoadingStore } from '@/lib/store';
-import { setTimeout } from 'timers';
+import { useActionModalStore, useLoadingStore } from '@/lib/store';
+import { ActionStatus } from '@/app/constants/actionModal';
 
 interface Props {
   recipeId: string
@@ -13,14 +13,21 @@ interface Props {
 
 const ApproveRecipe = ({ recipeId, path, isApproved }: Props) => {
   const {isLoading, setIsLoading} = useLoadingStore();
+  const { openModal } = useActionModalStore();
   const handleClick = async (e: React.MouseEvent) => {
     e.preventDefault()
 
     try {
       setIsLoading(true);
       await approveRecipe(recipeId, path, isApproved);
+      if (isApproved) {
+        openModal(ActionStatus.MESSAGE, 'Recipe has been removed.');
+      } else {
+        openModal(ActionStatus.SUCCESS, 'Recipe has been approved.');
+      }
       setIsLoading(false);
     } catch (error: any) {
+      openModal(ActionStatus.FAIL, 'Failed to approve recipe. Please try again.');
       throw new Error("Error approving recipe:", error)
     }
 
@@ -46,4 +53,4 @@ const ApproveRecipe = ({ recipeId, path, isApproved }: Props) => {
   )
 }
 
-export default ApproveRecipe
+export default ApproveRecipe;

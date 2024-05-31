@@ -6,6 +6,7 @@ import Footer from "../../components/shared/Footer";
 import { ClerkProvider } from "@clerk/nextjs";
 import LoadingScreen from "@/components/shared/LoadingScreen";
 import SideNavbar from "@/components/shared/SideNavbar";
+import ActionModalWrapper from "@/components/shared/ActionModalWrapper";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -34,6 +35,7 @@ export default function RootLayout({
             </section>
           </main>
           <Footer />
+          <ActionModalWrapper />
         </body>
       </html>
     </ClerkProvider>
