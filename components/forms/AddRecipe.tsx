@@ -128,7 +128,6 @@ const AddRecipe = ({ user }: Props) => {
       openModal(ActionStatus.FAIL, 'Failed to submite recipe. Please try again.');
     }
     setIsLoading(false);
-    revalidatePath("/");
     router.push("/")
   }
 

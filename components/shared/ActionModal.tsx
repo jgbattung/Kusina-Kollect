@@ -4,20 +4,14 @@ import { ActionStatus } from "@/app/constants/actionModal";
 import { useActionModalStore } from "@/lib/store";
 import { useEffect } from "react";
 
-interface ActionModalProps {
-  status: ActionStatus;
-  message: string;
-  onClose? : () => void;
-};
-
-const ActionModal = ({status, message, onClose}: ActionModalProps) => {
+const ActionModal = () => {
   const { showModal, modalStatus, modalMessage, closeModal } = useActionModalStore();
 
   useEffect(() => {
     if (showModal) {
       const timer = setTimeout(() => {
         closeModal();
-      }, 10000);
+      }, 20000);
 
       return () => {
         clearTimeout(timer);
@@ -39,7 +33,7 @@ const ActionModal = ({status, message, onClose}: ActionModalProps) => {
   };
 
   return (
-    <div className={`w-96 fixed bottom-5 left-5 border border-gray-400 rounded-xl px-6 py-4 ${getBgColor}`}>
+    <div className={`w-96 fixed bottom-5 left-5 border border-gray-400 rounded-xl px-6 py-4 ${getBgColor()}`}>
       <div className="flex items-center justify-between">
         <p>{modalMessage}</p>
         <button onClick={closeModal}>
