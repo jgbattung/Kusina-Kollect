@@ -154,7 +154,7 @@ function Navbar() {
           </div>
         </div>
       </div>
-      <nav className="max-lg:hidden pt-2 flex flex-1 items-center justify-evenly">
+      <nav className="max-md:hidden pt-2 flex flex-1 items-center justify-evenly">
         <div>
           <ul className="flex flex-1 items-center justify-evenly nav-links gap-20">
             {navbarRoutes.map((route) => {
@@ -170,7 +170,7 @@ function Navbar() {
             })}
           </ul>
         </div>
-        <div>
+        <div className="max-lg:hidden">
           <Link onClick={() => setIsLoading(true)} href='/add-recipe'><span className="nav-links text-primary-800 underline-custom">SUBMIT A RECIPE</span></Link>
         </div>
       </nav>

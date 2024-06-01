@@ -36,7 +36,7 @@ const SearchBar = () => {
               <input 
                 type='text' 
                 placeholder='Search here...' 
-                className='p-3 focus:outline-none w-full max-md:p-2 max-md:text-sm'
+                className='p-2 focus:outline-none w-full max-md:p-1 max-md:text-sm'
                 {...field}
               />
             </FormItem>
