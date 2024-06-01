@@ -237,6 +237,7 @@ export async function getRecipesBySearch(searchString: string) {
       $or: [
         { name: { $regex: searchString, $options: 'i' } },
         { ingredients: { $regex: searchString, $options: 'i' } },
+        { tags: { $regex: searchString, $options: 'i' } },
       ],
     })
       .select(' _id name images ')
