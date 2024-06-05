@@ -126,7 +126,7 @@ function Navbar() {
         {/* mobile */}
         <div className={`md:hidden flex gap-2 items-center ${isSideNavbarOpen && 'hidden'}`}>
           <div>
-            <button>
+            <Link href="/search">
               <svg fill="#333333" height="12px" width="12px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 490.4 490.4">
                 <g>
                   <path d="M484.1,454.796l-110.5-110.6c29.8-36.3,47.6-82.8,47.6-133.4c0-116.3-94.3-210.6-210.6-210.6S0,94.496,0,210.796
@@ -134,9 +134,11 @@ function Navbar() {
                     M41.1,210.796c0-93.6,75.9-169.5,169.5-169.5s169.6,75.9,169.6,169.5s-75.9,169.5-169.5,169.5S41.1,304.396,41.1,210.796z"/>
                 </g>
               </svg>
-            </button>
+            </Link>
           </div>
-          <p className="text-gray-400">|</p>
+          <SignedIn>
+            <p className="text-gray-400">|</p>
+          </SignedIn>
           <div>
             <SignedIn>
               <button>
@@ -154,6 +156,7 @@ function Navbar() {
           </div>
         </div>
       </div>
+      {/* nav links */}
       <nav className="max-md:hidden pt-2 flex flex-1 items-center justify-evenly">
         <div>
           <ul className="flex flex-1 items-center justify-evenly nav-links gap-20">
