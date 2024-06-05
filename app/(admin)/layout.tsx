@@ -4,6 +4,7 @@ import "../globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import AdminNavbar from "@/components/shared/AdminNavbar";
 import ActionModalWrapper from "@/components/shared/ActionModalWrapper";
+import AdminSideNavbar from "@/components/shared/AdminSideNavbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,8 +22,8 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={inter.className}>
-          <AdminNavbar />
-          <main className="flex">
+          <main className="flex flex-row">
+            <AdminSideNavbar />
             <section className="w-full flex min-h-screen bg-light-200">
               <div className="w-full">
                 {children}
