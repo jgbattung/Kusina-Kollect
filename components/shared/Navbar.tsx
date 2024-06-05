@@ -141,17 +141,53 @@ function Navbar() {
           </SignedIn>
           <div>
             <SignedIn>
-              <button>
-                <div className="flex items-center gap-2">
-                  <Image 
-                    src={userImage}
-                    alt="Profile icon"
-                    width={14}
-                    height={14}
-                  />
-                  <p className="font-light text-xs">My Account</p>
-                </div>
-              </button>
+              <NavigationMenu>
+                <NavigationMenuList>
+                  <NavigationMenuItem>
+                    <NavigationMenuTrigger className="flex items-center justify-center">
+                      <Link href="/profile">
+                        <div className="flex items-center gap-2">
+                          <Image 
+                            src={userImage}
+                            alt="Profile icon"
+                            width={18}
+                            height={18}
+                          />
+                          <p className="font-light text-sm">Account</p>
+                        </div>
+                      </Link>
+                    </NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                      <NavigationMenuLink asChild>
+                        <ul className=" min-w-60 bg-white text-sm font-medium">
+                          <Link href="/profile">
+                            <li className="p-4 hover:bg-accent-500" onClick={() => setIsLoading(true)}>
+                              My Profile
+                            </li>
+                          </Link>
+                          <Link href="/add-recipe">
+                            <li className="p-4 hover:bg-accent-500" onClick={() => setIsLoading(true)}>
+                              Add a Recipe
+                            </li>
+                          </Link>
+                          {userIsAdmin && (
+                            <Link href="/admin-panel">
+                              <li className="p-4 hover:bg-accent-500" onClick={() => setIsLoading(true)}>
+                                Admin Panel
+                              </li>
+                            </Link>
+                          )}
+                          <SignOutButton>
+                            <li className="p-4 hover:bg-accent-500" onClick={() => setIsLoading(true)}>
+                              Log out
+                            </li>
+                          </SignOutButton>
+                        </ul>
+                      </NavigationMenuLink>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+              </NavigationMenuList>
+              </NavigationMenu>
             </SignedIn>
           </div>
         </div>
