@@ -4,7 +4,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { adminRoutes } from "@/app/constants"
 import { usePathname } from "next/navigation"
-import { SignedIn, SignOutButton } from "@clerk/nextjs"
+import { SignOutButton } from "@clerk/nextjs"
 
 
 function AdminSideNavbar() {
