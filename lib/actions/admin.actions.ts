@@ -87,3 +87,34 @@ export async function getContributors() {
     throw new Error(`Failed to fetch contributors: ${error.message}`)
   }
 }
+
+export async function getUsersWithContribution() {
+  connectToDB();
+
+  try {
+    const users = await User.aggregate([
+      {
+        $lookup: {
+          from: Recipe.collection.name,
+          localField: '_id',
+          foreignField: 'submittedBy',
+          as: 'contributions'
+        }
+      },
+      {
+        $match: {
+          contributions: { $exists: true, $not: { $size: 0 } }
+        }
+      },
+      {
+        $project: {
+          _id: 1
+        }
+      }
+    ]);
+
+    return users.map(user => user._id);
+  } catch (error: any) {
+    throw new Error(`Failed to fetch users with contribution: ${error.message}`)
+  }
+}
