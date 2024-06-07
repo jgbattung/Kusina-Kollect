@@ -108,12 +108,22 @@ export async function getUsersWithContribution() {
       },
       {
         $project: {
-          _id: 1
+          _id: 1,
+          image: 1,
+          name: 1,
+          username: 1,
+          contributionCount: { $size: '$contributions' }
         }
-      }
+      },
+      {
+        $sort: { contributionCount: -1 }
+      },
+      {
+        $limit: 10
+      },
     ]);
 
-    return users.map(user => user._id);
+    return users;
   } catch (error: any) {
     throw new Error(`Failed to fetch users with contribution: ${error.message}`)
   }
