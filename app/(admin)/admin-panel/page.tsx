@@ -1,10 +1,7 @@
-
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import AdminOverviewCard from '@/components/cards/AdminOverviewCard';
 import PageWrapper from '@/components/utils/PageWrapper';
-import { getAllRecipes, getAllUsers } from '@/lib/actions/admin.actions';
+import { getAllApprovedRecipes, getAllRecipes, getAllUsers, getContributors } from '@/lib/actions/admin.actions';
 import { fetchUser } from '@/lib/actions/user.actions';
-import { useLoadingStore } from '@/lib/store';
-import { formatDate } from '@/lib/utils';
 import { currentUser } from '@clerk/nextjs';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
@@ -15,8 +12,9 @@ const AdminPanel  = async () => {
   if (!user) redirect('/sign-in');
   const userData = await fetchUser(user.id)
 
-  const allRecipes = await getAllRecipes();
-  const allUsers = await getAllUsers();
+  const approvedRecipes = await getAllApprovedRecipes();
+  const users = await getAllUsers();
+  const contributors = await getContributors();
 
   if(!userData.isAdmin) {
     return (
@@ -35,7 +33,13 @@ const AdminPanel  = async () => {
 
   return (
     <PageWrapper>
-      <h1>ADMIN PANEL</h1>
+      <div className='mx-6 my-12'>
+        <AdminOverviewCard 
+          approvedRecipes={approvedRecipes.length}
+          totalUsers={users.length}
+          contributors={contributors.length}
+        />
+      </div>
     </PageWrapper>
   )
 };
