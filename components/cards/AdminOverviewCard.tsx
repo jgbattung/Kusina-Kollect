@@ -10,7 +10,7 @@ interface OverviewProps {
 const AdminOverviewCard = ({ approvedRecipes, totalUsers, contributors }: OverviewProps) => {
   return (
     <div className='w-full bg-white shadow-lg'>
-      <div className='p-4'>
+      <div className='px-6 py-4'>
         <p className='font-semibold'>Kusina Kollect Stats</p>
       </div>
       <div className='w-full border border-b border-gray-200' />
