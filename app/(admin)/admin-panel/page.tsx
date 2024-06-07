@@ -1,6 +1,7 @@
 import AdminOverviewCard from '@/components/cards/AdminOverviewCard';
+import TopContributorsCard from '@/components/cards/TopContributorsCard';
 import PageWrapper from '@/components/utils/PageWrapper';
-import { getAllApprovedRecipes, getAllRecipes, getAllUsers, getContributors } from '@/lib/actions/admin.actions';
+import { getAllApprovedRecipes, getAllUsers, getContributors, getUsersWithContribution } from '@/lib/actions/admin.actions';
 import { fetchUser } from '@/lib/actions/user.actions';
 import { currentUser } from '@clerk/nextjs';
 import Link from 'next/link';
@@ -15,6 +16,8 @@ const AdminPanel  = async () => {
   const approvedRecipes = await getAllApprovedRecipes();
   const users = await getAllUsers();
   const contributors = await getContributors();
+  const usersWithContributions = await getUsersWithContribution();
+  console.log(usersWithContributions)
 
   if(!userData.isAdmin) {
     return (
@@ -33,12 +36,17 @@ const AdminPanel  = async () => {
 
   return (
     <PageWrapper>
-      <div className='mx-6 my-12'>
+      <div className='flex flex-col mx-6 my-12 gap-6'>
         <AdminOverviewCard 
           approvedRecipes={approvedRecipes.length}
           totalUsers={users.length}
-          contributors={contributors.length}
+          contributors={usersWithContributions.length}
         />
+        <div className='flex gap-8'>
+          <TopContributorsCard 
+            contributors={usersWithContributions}
+          />
+        </div>
       </div>
     </PageWrapper>
   )
