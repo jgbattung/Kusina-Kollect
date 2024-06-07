@@ -58,3 +58,32 @@ export async function approveRecipe(recipeId: string, path: string, isApproved: 
     throw new Error(`Failed to approve recipe: ${error.message}`)
   }
 }
+export async function getAllApprovedRecipes() {
+  connectToDB();
+
+  try {
+    const approvedRecipes = await Recipe.find({
+      isApproved: true
+    })
+      .select(' _id name ')
+
+    return approvedRecipes;
+  } catch (error: any) {
+    throw new Error(`Failed to fetch approved recipes: ${error.message}`)
+  }
+}
+
+export async function getContributors() {
+  connectToDB();
+
+  try {
+    const contributors = await User.find({
+      isContributor: true
+    })
+      .select(' _id name username image ') 
+
+    return contributors;
+  } catch (error: any) {
+    throw new Error(`Failed to fetch contributors: ${error.message}`)
+  }
+}
