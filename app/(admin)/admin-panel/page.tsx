@@ -1,10 +1,8 @@
-
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import AdminOverviewCard from '@/components/cards/AdminOverviewCard';
+import TopContributorsCard from '@/components/cards/TopContributorsCard';
 import PageWrapper from '@/components/utils/PageWrapper';
-import { getAllRecipes, getAllUsers } from '@/lib/actions/admin.actions';
+import { getAllApprovedRecipes, getAllUsers, getContributors, getUsersWithContribution } from '@/lib/actions/admin.actions';
 import { fetchUser } from '@/lib/actions/user.actions';
-import { useLoadingStore } from '@/lib/store';
-import { formatDate } from '@/lib/utils';
 import { currentUser } from '@clerk/nextjs';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
@@ -15,8 +13,11 @@ const AdminPanel  = async () => {
   if (!user) redirect('/sign-in');
   const userData = await fetchUser(user.id)
 
-  const allRecipes = await getAllRecipes();
-  const allUsers = await getAllUsers();
+  const approvedRecipes = await getAllApprovedRecipes();
+  const users = await getAllUsers();
+  const contributors = await getContributors();
+  const usersWithContributions = await getUsersWithContribution();
+  console.log(usersWithContributions)
 
   if(!userData.isAdmin) {
     return (
@@ -35,7 +36,18 @@ const AdminPanel  = async () => {
 
   return (
     <PageWrapper>
-      <h1>ADMIN PANEL</h1>
+      <div className='flex flex-col mx-6 my-12 gap-6'>
+        <AdminOverviewCard 
+          approvedRecipes={approvedRecipes.length}
+          totalUsers={users.length}
+          contributors={usersWithContributions.length}
+        />
+        <div className='flex gap-8'>
+          <TopContributorsCard 
+            contributors={usersWithContributions}
+          />
+        </div>
+      </div>
     </PageWrapper>
   )
 };
