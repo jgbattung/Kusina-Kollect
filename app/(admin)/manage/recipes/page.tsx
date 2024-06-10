@@ -52,7 +52,7 @@ const Page = async () => {
                   <td className='px-4 py-3'>{recipe.submittedBy.name ? recipe.submittedBy.name : recipe.submittedBy.username}</td>
                   <td className='px-4 py-3'>{formatDate(recipe.createdAt)}</td>
                   <td className='px-4 py-3'>
-                    <Link href={`/submissions/${recipe._id}`} className='text-blue-600 hover:underline'>
+                    <Link href={`/submission/${recipe._id}`} className='text-blue-600 hover:underline'>
                       <p>View Recipe</p>
                     </Link>
                   </td>

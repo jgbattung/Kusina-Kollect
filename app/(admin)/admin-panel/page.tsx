@@ -1,7 +1,8 @@
 import AdminOverviewCard from '@/components/cards/AdminOverviewCard';
 import TopContributorsCard from '@/components/cards/TopContributorsCard';
+import UnapprovedRecipesCard from '@/components/cards/UnapprovedRecipesCard';
 import PageWrapper from '@/components/utils/PageWrapper';
-import { getAllApprovedRecipes, getAllUsers, getContributors, getUsersWithContribution } from '@/lib/actions/admin.actions';
+import { getAllApprovedRecipes, getAllUsers, getContributors, getUnapprovedRecipes, getUsersWithContribution } from '@/lib/actions/admin.actions';
 import { fetchUser } from '@/lib/actions/user.actions';
 import { currentUser } from '@clerk/nextjs';
 import Link from 'next/link';
@@ -17,7 +18,8 @@ const AdminPanel  = async () => {
   const users = await getAllUsers();
   const contributors = await getContributors();
   const usersWithContributions = await getUsersWithContribution();
-  console.log(usersWithContributions)
+  const unapprovedRecipes = await getUnapprovedRecipes();
+  console.log(unapprovedRecipes);
 
   if(!userData.isAdmin) {
     return (
@@ -45,6 +47,10 @@ const AdminPanel  = async () => {
         <div className='flex gap-8'>
           <TopContributorsCard 
             contributors={usersWithContributions}
+          />
+          <UnapprovedRecipesCard 
+            recipes={unapprovedRecipes}
+            path='/admin-panel'
           />
         </div>
       </div>
