@@ -15,7 +15,7 @@ interface ContributorsProps {
 
 const TopContributorsCard = ({ contributors }: ContributorsProps) => {
   return (
-    <div className='w-full bg-white shadow-lg'>
+    <div className='w-full bg-white shadow-lg h-fit pb-3'>
       <div className='px-6 py-4'>
         <p className='font-semibold'>Top Contributors</p>
       </div>

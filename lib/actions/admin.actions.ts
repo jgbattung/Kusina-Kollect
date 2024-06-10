@@ -47,7 +47,6 @@ export async function approveRecipe(recipeId: string, path: string, isApproved: 
     )
 
     revalidatePath(path);
-    revalidatePath('/admin-panel');
 
     if (!updatedRecipe) {
       throw new Error(`Recipe not found`)
@@ -126,5 +125,21 @@ export async function getUsersWithContribution() {
     return users;
   } catch (error: any) {
     throw new Error(`Failed to fetch users with contribution: ${error.message}`)
+  }
+}
+
+export async function getUnapprovedRecipes() {
+  connectToDB();
+
+  try {
+    const unapprovedRecipes = Recipe.find({
+      isApproved: false,
+    })
+      .select(' _id name isApproved createdAt ')
+      .sort({ createdAt: 'desc' })
+
+    return unapprovedRecipes;
+  } catch (error: any) {
+    throw new Error(`Failed to fetch unapproved recipes: ${error.message}`)
   }
 }
