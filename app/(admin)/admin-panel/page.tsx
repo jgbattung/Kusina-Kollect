@@ -16,10 +16,8 @@ const AdminPanel  = async () => {
 
   const approvedRecipes = await getAllApprovedRecipes();
   const users = await getAllUsers();
-  const contributors = await getContributors();
   const usersWithContributions = await getUsersWithContribution();
   const unapprovedRecipes = await getUnapprovedRecipes();
-  console.log(unapprovedRecipes);
 
   if(!userData.isAdmin) {
     return (
