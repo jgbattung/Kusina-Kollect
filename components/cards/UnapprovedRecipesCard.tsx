@@ -4,6 +4,7 @@ import { ActionStatus } from '@/app/constants/actionModal';
 import { approveRecipe } from '@/lib/actions/admin.actions';
 import { useActionModalStore, useLoadingStore } from '@/lib/store';
 import { formatDate } from '@/lib/utils';
+import Link from 'next/link';
 import React from 'react'
 
 interface Recipe {
@@ -37,7 +38,7 @@ const UnapprovedRecipesCard = ({ recipes, path }: Props) => {
   }
 
   return (
-    <div className='w-full bg-white shadow-lg'>
+    <div className='w-full h-fit bg-white shadow-lg'>
       <div className='px-6 py-4'>
         <p className='font-semibold'>Quick Approve Recipes</p>
       </div>
@@ -46,7 +47,9 @@ const UnapprovedRecipesCard = ({ recipes, path }: Props) => {
         {recipes.map((recipe) => (
           <div key={recipe._id} className='pb-4 border-b-2 border-b-gray-200 last:border-none flex items-center justify-between'>
             <div className='flex flex-col text-left items-start text-sm'>
-              <p>{recipe.name}</p>
+              <Link href={`/submission/${recipe._id}`} className='hover:underline hover:underline-offset-2 hover:text-primary-800'>
+                <p>{recipe.name}</p>
+              </Link>
               <p className='font-light text-xs'>submitted {formatDate(recipe.createdAt)}</p>
             </div>
             <div>
