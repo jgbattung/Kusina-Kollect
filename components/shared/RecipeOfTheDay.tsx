@@ -20,8 +20,7 @@ interface RecipeOfTheDayProps {
 function RecipeOfTheDay({ recipe }: RecipeOfTheDayProps) {
 
   return (
-    <section className='w-full page-container gap-7 px-5 max-sm:py-7'>
-      <p className='font-extrabold text-3xl max-sm:font-bold max-sm:text-2xl'>Recipe of the Day</p>
+    <section className='w-full flex items-start page-container gap-7 px-5 max-sm:py-7'>
       {recipe && (
           <FeatureRecipeCard 
             id={recipe._id}
