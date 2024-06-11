@@ -32,7 +32,7 @@ export default async function Home() {
 
   return (
     <div className="page-container">
-      <div className="flex max-xl:flex-col items-center justify-center mb-4">
+      <div className="flex max-xl:flex-col items-start justify-center mb-12">
         <RecipeOfTheDay recipe={recipeOfTheDay} />
         <HighlightRecipes recipes={trendingRecipes} />
       </div>
