@@ -1,7 +1,8 @@
+import HighlightRecipes from "@/components/shared/HighlightRecipes";
 import NewRecipes from "@/components/shared/NewRecipes";
 import RecipeOfTheDay from "@/components/shared/RecipeOfTheDay";
 import SearchDiv from "@/components/shared/SearchDiv";
-import { getRecipeOfTheDay } from "@/lib/actions/recipe.actions";
+import { getRecipeOfTheDay, getTrendingRecipes } from "@/lib/actions/recipe.actions";
 import { doesUserExist, updateUser } from "@/lib/actions/user.actions";
 import { currentUser } from "@clerk/nextjs";
 
@@ -27,10 +28,14 @@ export default async function Home() {
   }
 
   const recipeOfTheDay = await getRecipeOfTheDay();
+  const trendingRecipes = await getTrendingRecipes();
 
   return (
     <div className="page-container">
-      <RecipeOfTheDay recipe={recipeOfTheDay} />
+      <div className="flex max-xl:flex-col max-md:w-full items-start justify-center mb-12 gap-6">
+        <RecipeOfTheDay recipe={recipeOfTheDay} />
+        <HighlightRecipes recipes={trendingRecipes} />
+      </div>
       <NewRecipes />
       <SearchDiv /> 
     </div>

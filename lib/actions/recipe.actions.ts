@@ -1,5 +1,6 @@
 "use server"
 
+import { Recipe as RecipeType } from "@/components/shared/HighlightRecipes";
 import Recipe from "../models/recipe.model";
 import User from "../models/user.model";
 import { connectToDB } from "../mongoose";
@@ -245,6 +246,53 @@ export async function getRecipesBySearch(searchString: string) {
 
     return recipes;  
   } catch (error: any) {
-    throw new Error(`Failed to get search results`);
+    throw new Error(`Failed to get search results: ${error.message}`);
+  }
+}
+
+const trendingRecipesCache = new NodeCache({ stdTTL: 60 * 60 * 24 })
+
+export async function getTrendingRecipes(): Promise<RecipeType[]> {
+
+  const cachedRecipes = trendingRecipesCache.get<RecipeType[]>('trendingRecipes');
+  if (cachedRecipes) {
+    return cachedRecipes
+  };
+
+  connectToDB();
+
+  try {
+    const recipes: RecipeType[] = await Recipe.aggregate([
+      { $sample: { size: 4 } },
+      {
+        $lookup: {
+          from: User.collection.name,
+          localField: 'submittedBy',
+          foreignField: '_id',
+          as: 'submittedBy',
+        },
+      },
+      {
+        $unwind: '$submittedBy'
+      },
+      {
+        $project: {
+          _id: 1,
+          name: 1,
+          images: 1,
+          description: 1,
+        },
+      },
+    ]);
+
+    if (recipes.length === 0) {
+      throw new Error('No recipes found');
+    }
+
+    trendingRecipesCache.set('trendingRecipes', recipes, 60 * 60 * 24);
+
+    return recipes;
+  } catch (error: any) {
+    throw new Error(`Failed to get trending recipes: ${error.message}`)
   }
 }

@@ -40,7 +40,7 @@ const FeatureRecipeCard = ({ id, name, images, description, submittedBy, userIma
             <p className='font-extrabold text-sm text-primary-800'>{`${category.toUpperCase()} RECIPES`}</p>
           )}
           <div>
-            <p className='font-extrabold text-xl max-sm:font-bold max-sm:text-lg group-hover:underline-offset-2 group-hover:underline underline-custom'>{name}</p>
+            <p className='font-extrabold text-2xl max-sm:font-bold max-sm:text-lg group-hover:underline-offset-2 group-hover:underline underline-custom'>{name}</p>
             <div className='flex items-center justify-start gap-1'>
               <p className='font-light text-xs text-gray-600'>{`by ${submittedBy}`}</p>
               <Image 
