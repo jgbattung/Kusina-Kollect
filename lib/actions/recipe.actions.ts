@@ -263,7 +263,7 @@ export async function getTrendingRecipes(): Promise<RecipeType[]> {
 
   try {
     const recipes: RecipeType[] = await Recipe.aggregate([
-      { $sample: { size: 3 } },
+      { $sample: { size: 4 } },
       {
         $lookup: {
           from: User.collection.name,
