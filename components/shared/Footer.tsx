@@ -1,10 +1,20 @@
+"use client"
+
 import { navbarRoutes } from "@/app/constants"
 import Image from "next/image"
 import Link from "next/link"
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
+import { useActionModalStore } from "@/lib/store"
+import { ActionStatus } from "@/app/constants/actionModal"
 
 function Footer() {
+  const { openModal } = useActionModalStore();
+
+  const handleSubscribe = () => {
+    openModal(ActionStatus.MESSAGE, 'You are now subscribed to our newsletter.')
+  };
+
   return (
     <footer className="flex flex-col bg-gray-100 border-t border-gray-200 shadow-md items-center pt-12 pb-5 max-md:pt-6">
       <div className="flex items-center justify-evenly w-full gap-3 max-md:flex-col">
@@ -28,8 +38,14 @@ function Footer() {
         <div className="flex flex-col gap-2 pb-3 max-md:items-center">
           <p className="text-sm">Subscribe to our newsletter</p>
           <div className="flex gap-3 max-md:flex-col">
-            <Input type="text" placeholder="Enter email address" className="p-2 text-sm placeholder:text-gray-400" />
-            <Button type="submit" className="bg-complementary-500 hover:bg-complementary-800 rounded-2xl py-2 px-3 text-light-200 text-xs">Subscribe</Button>
+            <Input required type="text" placeholder="Enter email address" className="p-2 text-sm placeholder:text-gray-400" />
+            <Button
+              onClick={handleSubscribe}
+              type="submit"
+              className="bg-complementary-500 hover:bg-complementary-800 rounded-2xl py-2 px-3 text-light-200 text-xs"
+            >
+              Subscribe
+            </Button>
           </div>
         </div>
       </div>

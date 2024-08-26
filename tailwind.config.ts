@@ -114,6 +114,9 @@ const config = {
         '130': '520px',
         '160': '640px',
       },
+      width: {
+        '100': '400px',
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
