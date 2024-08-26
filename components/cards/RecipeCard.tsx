@@ -13,7 +13,7 @@ const RecipeCard = ({ id, name, images, category }: Props) => {
     <article className="flex flex-col justify-center items-center">
       <Link 
         href={`/recipe/${id}`}
-        className="group flex flex-col gap-2 items-start justify-center"  
+        className="group flex flex-col gap-2 items-start justify-center truncate"  
       >
         {images.length > 0 ? (
           <Image 
@@ -36,7 +36,7 @@ const RecipeCard = ({ id, name, images, category }: Props) => {
           {category && (
             <p className="text-sm font-semibold text-primary-800">{category.toUpperCase()} RECIPES</p>
           )}
-          <p className="font-bold text-2xl max-sm:text-lg group-hover:underline group-hover:underline-offset-2 underline-custom">{name}</p>
+          <p className="font-bold text-2xl max-sm:text-lg group-hover:underline group-hover:underline-offset-2 underline-custom truncate">{name}</p>
         </div>
       </Link>
     </article>
