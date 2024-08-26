@@ -1,6 +1,8 @@
 import { navbarRoutes } from "@/app/constants"
 import Image from "next/image"
 import Link from "next/link"
+import { Input } from "../ui/input"
+import { Button } from "../ui/button"
 
 function Footer() {
   return (
@@ -14,20 +16,20 @@ function Footer() {
             height={200}
           />
         </div>
-        <div className="pb-3">
-          <ul className="grid grid-cols-2 items-left gap-5 nav-links">
+        <div>
+          <ul className="grid grid-cols-3 items-left max-sm:items-center gap-3 nav-links">
             {navbarRoutes.map((routes) => (
               <li key={routes.name}>
-                <Link href={routes.path}>{routes.name.toUpperCase()}</Link>
+                <Link href={routes.path} className="hover:underline hover:text-primary-800">{routes.name.toUpperCase()}</Link>
               </li>
             ))}
           </ul>
         </div>
         <div className="flex flex-col gap-2 pb-3 max-md:items-center">
-          <p className="text-sm">Contact Us</p>
-          <div className="flex gap-2 max-md:flex-col">
-            <input type="text" placeholder="Enter email address" className="p-1 text-sm" />
-            <button type="submit" className="bg-complementary-500 rounded-2xl py-1 px-2 text-light-200">Subscribe</button>
+          <p className="text-sm">Subscribe to our newsletter</p>
+          <div className="flex gap-3 max-md:flex-col">
+            <Input type="text" placeholder="Enter email address" className="p-2 text-sm placeholder:text-gray-400" />
+            <Button type="submit" className="bg-complementary-500 hover:bg-complementary-800 rounded-2xl py-2 px-3 text-light-200 text-xs">Subscribe</Button>
           </div>
         </div>
       </div>
