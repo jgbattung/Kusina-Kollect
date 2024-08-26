@@ -33,8 +33,8 @@ const ActionModal = () => {
   };
 
   return (
-    <div className={`w-96 fixed bottom-5 left-5 border border-gray-400 rounded-xl px-6 py-4 ${getBgColor()}`}>
-      <div className="flex items-center justify-between">
+    <div className={`w-100 fixed bottom-5 left-5 border border-gray-400 rounded-xl px-6 py-4 ${getBgColor()}`}>
+      <div className="flex items-center justify-between gap-1">
         <p>{modalMessage}</p>
         <button onClick={closeModal}>
           <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
