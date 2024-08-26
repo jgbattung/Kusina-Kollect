@@ -28,7 +28,7 @@ function Footer() {
         <div className="flex flex-col gap-2 pb-3 max-md:items-center">
           <p className="text-sm">Subscribe to our newsletter</p>
           <div className="flex gap-3 max-md:flex-col">
-            <Input type="text" placeholder="Enter email address" className="p-1 text-sm placeholder:text-gray-400" />
+            <Input type="text" placeholder="Enter email address" className="p-2 text-sm placeholder:text-gray-400" />
             <Button type="submit" className="bg-complementary-500 hover:bg-complementary-800 rounded-2xl py-2 px-3 text-light-200 text-xs">Subscribe</Button>
           </div>
         </div>
