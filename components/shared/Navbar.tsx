@@ -74,18 +74,20 @@ function Navbar() {
         </Link>
         <div className="flex items-center justify-center gap-7 max-md:hidden w-1/3">
           <SearchBar />
-          <Link
-              href={'/sign-in'}
-              className="flex items-center gap-2 underline-custom text-sm"
-            >
-            <Image 
-              src={'/assets/users-icon.png'}
-              alt="Profile icon"
-              width={25}
-              height={25}
-            />
-            <p>Login</p>
-          </Link>
+          <div className={`${user && 'hidden'}`}>
+            <Link
+                href={'/sign-in'}
+                className="flex items-center gap-2 underline-custom text-sm"
+              >
+              <Image 
+                src={'/assets/users-icon.png'}
+                alt="Profile icon"
+                width={25}
+                height={25}
+              />
+              <p>Login</p>
+            </Link>
+          </div>
         </div>
         <SignedIn>
           <NavigationMenu className="max-md:hidden">
@@ -147,19 +149,21 @@ function Navbar() {
                 </g>
               </svg>
             </Link>
-            <p className="text-gray-400">|</p>
-            <Link
-                href={'/sign-in'}
-                className="flex items-center gap-2 underline-custom text-sm"
-              >
-              <Image 
-                src={'/assets/users-icon.png'}
-                alt="Profile icon"
-                width={25}
-                height={25}
-              />
-              <p>Login</p>
-            </Link>
+            <div className={`${user && 'hidden'}`}>
+              <p className="text-gray-400">|</p>
+              <Link
+                  href={'/sign-in'}
+                  className="flex items-center gap-2 underline-custom text-sm"
+                >
+                <Image 
+                  src={'/assets/users-icon.png'}
+                  alt="Profile icon"
+                  width={25}
+                  height={25}
+                />
+                <p>Login</p>
+              </Link>
+            </div>
           </div>
           <SignedIn>
             <p className="text-gray-400">|</p>
