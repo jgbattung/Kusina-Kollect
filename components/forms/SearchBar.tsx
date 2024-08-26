@@ -28,7 +28,7 @@ const SearchBar = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className='flex border border-black rounded-sm'>
+      <form onSubmit={form.handleSubmit(onSubmit)} className='flex border border-black rounded-sm w-100'>
         <FormField
           control={form.control}
           name="searchString"
