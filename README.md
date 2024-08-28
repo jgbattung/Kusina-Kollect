@@ -20,6 +20,47 @@ The backend is driven by MongoDB with Mongoose for data management, and uploadth
 6.  **Recipe Moderation**: Admins can approve or reject submitted recipes to maintain quality content.
 
 ## Screens
+### Authentication Page
+![auth](https://github.com/user-attachments/assets/9495140d-b7b7-489b-ad65-484410e449f3)
+
+### Homepage
+![home-1](https://github.com/user-attachments/assets/b28f11c4-7345-4680-b9c6-736cce399d7c)
+![home-2](https://github.com/user-attachments/assets/f21bba1d-4480-4734-bf83-d2b3ce8009df)
+![home-3](https://github.com/user-attachments/assets/4b3a203c-fea7-4a39-8aba-c64919613cf7)
+![home-phone-1](https://github.com/user-attachments/assets/65058254-c70d-4548-8b7e-11028d96a92a)
+![home-phone-2](https://github.com/user-attachments/assets/b24d8d9c-98ca-4a99-bd02-2556c926b089)
+
+### Recipe Submission
+![submit-recipe-1](https://github.com/user-attachments/assets/5a267e85-cd6a-4c9f-80b4-101acab99f22)
+![submit-recipe-2](https://github.com/user-attachments/assets/7749f4c5-3690-4ca5-97ea-0a9ddc9ad25e)
+
+### Recipe Sections
+![image](https://github.com/user-attachments/assets/590bae9c-b2c7-41c3-9fa4-025d121ba354)
+![image](https://github.com/user-attachments/assets/6d00fb6d-198a-4f09-b72b-fc6656fc8b2a)
+![image](https://github.com/user-attachments/assets/0c5db8d5-1f7e-4b02-a74e-67ac1428ac71)
+
+### View Recipes
+![view-recipes-1](https://github.com/user-attachments/assets/11ea8cb6-1e2d-4088-9963-a5899c21feba)
+![view-recipes-2](https://github.com/user-attachments/assets/84693a0b-fbff-472c-9e9a-3e2152719d8b)
+
+### Search Recipes
+![image](https://github.com/user-attachments/assets/54acded4-ab3a-427e-ae32-6dec085ef327)
+
+### My Account
+![my-account-1](https://github.com/user-attachments/assets/8f4202d1-ad70-4caf-9221-3ef5e89680e4)
+![my-account-2](https://github.com/user-attachments/assets/104b6817-7d13-4f30-a39a-a971ae07a70c)
+
+### Admin Panel
+#### Dashboard
+![dashboard](https://github.com/user-attachments/assets/eb1dbf30-822f-474f-ab86-06af9c89af6c)
+
+#### Manage Recipes
+![manage-recipes-1](https://github.com/user-attachments/assets/7ad79b52-6f36-4d1c-9d41-0dfdbb6380c1)
+![manage-recipes-2](https://github.com/user-attachments/assets/101ba7fb-ef46-42dc-acd4-66ab2e16bb0d)
+
+#### Manage Users
+![manage-users](https://github.com/user-attachments/assets/69f74a67-6395-4f77-b952-d478b4d63a5a)
+
 
 ## Run the project locally
 1. Clone the repository
