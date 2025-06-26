@@ -34,7 +34,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
   const recipePath = `/recipe/${params.id}`
 
   return (
-    <section className="page-container mt-5 mb-10">
+    <section className="page-container mt-5 mb-10 px-5">
       <div className="flex flex-col gap-8 max-w-screen-sm">
         <div className="flex flex-col gap-4 text-left ">
           <div className="flex items-center justify-between">

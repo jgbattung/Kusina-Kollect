@@ -42,13 +42,9 @@ export async function saveRecipe(recipeData: SaveRecipeParams): Promise<void> {
 export async function fetchNewRecipes() {
   connectToDB();
 
-  const oneMonthAgo = new Date();
-  oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
-
   try {
     const newRecipes = await Recipe.find({ 
-      isApproved: true,
-      createdAt: { $gte: oneMonthAgo }
+      isApproved: true
     })
     .sort({ createdAt: 'desc'})
     .limit(6)
