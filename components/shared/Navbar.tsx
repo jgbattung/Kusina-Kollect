@@ -149,7 +149,7 @@ function Navbar() {
                 </g>
               </svg>
             </Link>
-            <div className={`${user && 'hidden'}`}>
+            <div className={`${user && 'hidden'} flex gap-2`}>
               <p className="text-gray-400">|</p>
               <Link
                   href={'/sign-in'}
